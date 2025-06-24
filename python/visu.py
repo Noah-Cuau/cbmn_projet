@@ -119,28 +119,30 @@ def make_list_of_subgraph(nt_graph, graph):
     
     leave_list = []
     node_list = get_list_of_node(graph)
-
-    for node in nt_graph.node_list():
+    
+    for node in node_list:
         if not node == 'imaginary':
             if find_node_from_data(graph, node).get_children() == []:
                 leave_list.append(node)
     # print(leave_list)
+    nb_graph = 0
     for leave in leave_list:
-        nt_graph.add_node(leave)
-        print(find_node_from_data(graph, leave).data)
-        #find_path_to_root(find_node_from_data(graph, leave), nt_graph)
-
+        nt_graph.add_node(leave+str(nb_graph), shape = 'diamond')
+        #print(find_node_from_data(graph, leave).data)
+        find_path_to_root(find_node_from_data(graph, leave), nt_graph, nb_graph)
+        nb_graph +=1
         
 
-def find_path_to_root(node, nt_graph):
-    print(parents)
-    parents = node.get_parents()
-    for parent in parents:
-            
-            nt_graph.add_node(parents)
-            nt_graph.add_edge(parents, node.data)
-    for parent in parents:
-        find_path_to_root(parent, nt_graph)
+def find_path_to_root(node, nt_graph, nb_sub_graph):
+    
+        parents = node.get_parents()
+        
+        for parent in parents:
+            if not parent.data == 'imaginary':    
+                nt_graph.add_node(parent.data+str(nb_sub_graph))
+                nt_graph.add_edge(parent.data+str(nb_sub_graph), node.data+str(nb_sub_graph))
+        for parent in parents:
+            find_path_to_root(parent, nt_graph, nb_sub_graph)
 
 
 
