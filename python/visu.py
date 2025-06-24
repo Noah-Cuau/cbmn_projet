@@ -49,11 +49,13 @@ def get_longest_branch(graph):
                 max = item[0]
                 i_max = i
         return (liste[i_max][0], liste[i_max][1] + [graph.data])
-def get_lenght_graph_nt(graph_nt, n):
-    key_list = []
-    for key in graph_nt.get_adj_list().keys():
-        if int(key[-2]) == n:
-            key_list.append(key)
+def get_nb_node(nt_graph, n_subgraph):
+    ajd_matrix = nt_graph.get_adj_list()
+    nb = 0
+    for key in ajd_matrix.keys():
+        if int(key[:-2]) == n:
+            nb += 1
+    return nb
 
 def find_node_from_data(graph, data):
     if not graph.data == data and graph.get_children() == []:
@@ -144,9 +146,16 @@ def find_path_to_root(node, nt_graph, nb_sub_graph, depth = 0):
         parents = node.get_parents()
         i = 0
         nb_parent = len(parents)
+        if nb_parent == 0:
+            y_modif = lambda a : int(UNIT/2)/2
+        else:
+            y_modif = lambda a : int(UNIT/2 + ((UNIT/nb_parent)*(a)))
+            
         for parent in parents:
             if not parent.data == 'imaginary':    
-                nt_graph.add_node(parent.data+str(nb_sub_graph), x = depth * 200, y = (nb_sub_graph-1) *UNIT + int(UNIT - ((UNIT/nb_parent)*i)))
+                nt_graph.add_node(parent.data+str(nb_sub_graph), x = depth * 200, 
+                y = (nb_sub_graph-1) * UNIT + y_modif(i)
+                )
             
                 nt_graph.add_edge(parent.data+str(nb_sub_graph), node.data+str(nb_sub_graph))
                 i +=1
