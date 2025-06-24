@@ -14,6 +14,16 @@ pos_dict = dict()
 rank_dict = dict()
 list_pos_taken = []
 
+def get_list_of_node(node):
+    node_list = [node.data]
+    for child in node.get_children():
+        if not child.data in node_list:
+            node_list.extend(get_list_of_node(child))
+    
+    return node_list
+
+
+
 def get_longest_branch(graph):
     if len(graph.get_children()) == 0:
         return (graph.get_rank(), [graph.data])
@@ -103,37 +113,67 @@ def make_list_of_subgraph(nt_graph, graph):
         if not node == 'imaginary':
             if find_node_from_data(graph, node).get_children() == []:
                 leave_list.append(node)
-    print(leave_list)
+    # print(leave_list)
+    for leave in leave_list:
+        nt_graph.add_node(leave)
+        print(find_node_from_data(graph, leave).data)
+        #find_path_to_root(find_node_from_data(graph, leave), nt_graph)
+
+        
+
+def find_path_to_root(node, nt_graph):
+    print(parents)
+    parents = node.get_parents()
+    for parent in parents:
+            
+            nt_graph.add_node(parents)
+            nt_graph.add_edge(parents, node.data)
+    for parent in parents:
+        find_path_to_root(parent, nt_graph)
 
 
-convert_graph(nx_graph, graph)
-nt = Network('100%', '100%', directed = True)
-nt.toggle_drag_nodes(True)
-nt.toggle_physics(True)
-nt.toggle_stabilization(False)
-custom_from_nx(nt, pos_dict, graph)
-nt.barnes_hut()
-rank_max = get_longest_branch(graph)[0]
-make_list_of_subgraph(nt, graph)
 
 
-for node_id, pos in pos_dict.items():
-    if node_id == 'imaginary':
-        pass
-    else:
-        for i, node in enumerate(nt.nodes):
-            if node['id'] == node_id:
-                node_index = i
+
+
+
+# convert_graph(nx_graph, graph)
+# nt = Network('100%', '100%', directed = True)
+# nt.toggle_drag_nodes(True)
+# nt.toggle_physics(True)
+# nt.toggle_stabilization(False)
+# custom_from_nx(nt, pos_dict, graph)
+# nt.barnes_hut()
+# rank_max = get_longest_branch(graph)[0]
+# make_list_of_subgraph(nt, graph)
+
+
+
+# for node_id, pos in pos_dict.items():
+#     if node_id == 'imaginary':
+#         pass
+#     else:
+#         for i, node in enumerate(nt.nodes):
+#             if node['id'] == node_id:
+                # node_index = i
         # nt.nodes[node_index]['x'] = pos[0][0]
         # nt.nodes[node_index]['y'] = pos[0][1]
-        nt.nodes[node_index]['color'] = matplotlib.colors.to_hex(color_map[int((pos[1]*color_max)/rank_max)-1])
+        # nt.nodes[node_index]['color'] = matplotlib.colors.to_hex(color_map[int((pos[1]*color_max)/rank_max)-1])
 
 
+def to_run():
+    nt = Network('100%', '100%', directed = True)
+    nt.toggle_drag_nodes(True)
+    nt.toggle_physics(True)
+    nt.toggle_stabilization(False)
+    print("ha")
+    make_list_of_subgraph(nt, graph)
 
-
-
-nt.show('graph.html')
+    nt.show('graph.html')
 
 if __name__ == '__main__':
-    pass
+    
+    print('ha', get_list_of_node(graph))
+
+    
     #print(find_node_from_data(graph, 'ManualPick/job070/').data)
