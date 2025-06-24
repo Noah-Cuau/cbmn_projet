@@ -14,15 +14,25 @@ pos_dict = dict()
 rank_dict = dict()
 list_pos_taken = []
 
-def get_list_of_node(node):
+def get_list_of_node_rec(node):
     node_list = [node.data]
     for child in node.get_children():
         if not child.data in node_list:
-            node_list.extend(get_list_of_node(child))
-    
+            node_list.extend(get_list_of_node_rec(child))    
     return node_list
 
-
+def get_list_of_node(node):
+    list_of_node = get_list_of_node_rec(node)
+    duplicate = dict()
+    for node_data in list_of_node:
+        if not node in duplicate.keys():
+            duplicate[node_data] = 1
+        else:
+            duplicate[node_data] += 1
+    for key, item in duplicate.items():
+        for _ in range(item-1):
+            list_of_node.remove(key)
+    return list_of_node
 
 def get_longest_branch(graph):
     if len(graph.get_children()) == 0:
@@ -108,8 +118,9 @@ def custom_from_nx(nt_graph, pos_dict, graph):
 def make_list_of_subgraph(nt_graph, graph):
     
     leave_list = []
+    node_list = get_list_of_node(graph)
 
-    for node in nt_graph.get_nodes():
+    for node in nt_graph.node_list():
         if not node == 'imaginary':
             if find_node_from_data(graph, node).get_children() == []:
                 leave_list.append(node)
@@ -166,14 +177,15 @@ def to_run():
     nt.toggle_drag_nodes(True)
     nt.toggle_physics(True)
     nt.toggle_stabilization(False)
-    print("ha")
+
     make_list_of_subgraph(nt, graph)
 
     nt.show('graph.html')
 
 if __name__ == '__main__':
-    
-    print('ha', get_list_of_node(graph))
+    to_run()
+    pass
+    #print('ha', len(get_list_of_node(graph)))
 
     
     #print(find_node_from_data(graph, 'ManualPick/job070/').data)
