@@ -1,4 +1,7 @@
+import os
+import sys
 import star_gate.star_gate.star_gate as sg
+
 import graph
 
 def read_starfile(filename):

@@ -29,19 +29,16 @@ def get_longest_branch(graph):
                 i_max = i
         return (liste[i_max][0], liste[i_max][1] + [graph.data])
 
-def find_node_from_data(graph, data, done = []):
+def find_node_from_data(graph, data):
+    if not graph.data == data and graph.get_children() == []:
+        return False
     if graph.data == data:
         return graph
     for child in graph.get_children():
-            if not child.data in done: 
-                return find_node_from_data(child, data, done)
-    for parent in graph.get_parents():
-        if parent.data == data:
-            return parent
-        else:
-            if not parent.data in done: 
-                done.append(graph.data)
-                return find_node_from_data(parent, data, done)
+        result = find_node_from_data(child, data)
+        if result is not False:
+            return result
+    return False
          
 def convert_graph(nx_graph, graph,pos_cursor = (0,0), longest_path = [], done = []):
     if longest_path == []:
@@ -98,7 +95,15 @@ def custom_from_nx(nt_graph, pos_dict, graph):
                 nt_graph.add_node(e[1], e[1], title=e[1])
                 nt_graph.add_edge(e[1], e[0])
 
+def make_list_of_subgraph(nt_graph, graph):
+    
+    leave_list = []
 
+    for node in nt_graph.get_nodes():
+        if not node == 'imaginary':
+            if find_node_from_data(graph, node).get_children() == []:
+                leave_list.append(node)
+    print(leave_list)
 
 
 convert_graph(nx_graph, graph)
@@ -109,6 +114,7 @@ nt.toggle_stabilization(False)
 custom_from_nx(nt, pos_dict, graph)
 nt.barnes_hut()
 rank_max = get_longest_branch(graph)[0]
+make_list_of_subgraph(nt, graph)
 
 
 for node_id, pos in pos_dict.items():
@@ -130,3 +136,4 @@ nt.show('graph.html')
 
 if __name__ == '__main__':
     pass
+    #print(find_node_from_data(graph, 'ManualPick/job070/').data)
