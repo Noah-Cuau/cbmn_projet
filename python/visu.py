@@ -7,6 +7,7 @@ from star_to_graph import read_starfile
 import networkx as nx
 FILENAME = 'default_pipeline.star'
 PHYSICS = False
+UNIT = 500
 graph = read_starfile(FILENAME)
 nx_graph = nx.graph.Graph()
 done = []
@@ -48,6 +49,11 @@ def get_longest_branch(graph):
                 max = item[0]
                 i_max = i
         return (liste[i_max][0], liste[i_max][1] + [graph.data])
+def get_lenght_graph_nt(graph_nt, n):
+    key_list = []
+    for key in graph_nt.get_adj_list().keys():
+        if int(key[-2]) == n:
+            key_list.append(key)
 
 def find_node_from_data(graph, data):
     if not graph.data == data and graph.get_children() == []:
@@ -124,25 +130,28 @@ def make_list_of_subgraph(nt_graph, graph):
         if not node == 'imaginary':
             if find_node_from_data(graph, node).get_children() == []:
                 leave_list.append(node)
-    # print(leave_list)
+
     nb_graph = 0
     for leave in leave_list:
-        nt_graph.add_node(leave+str(nb_graph), shape = 'diamond')
-        #print(find_node_from_data(graph, leave).data)
+        nt_graph.add_node(leave+str(nb_graph), shape = 'diamond', x =0, y =nb_graph * UNIT )
+
         find_path_to_root(find_node_from_data(graph, leave), nt_graph, nb_graph)
         nb_graph +=1
         
 
-def find_path_to_root(node, nt_graph, nb_sub_graph):
-    
+def find_path_to_root(node, nt_graph, nb_sub_graph, depth = 0):
+        depth += 1
         parents = node.get_parents()
-        
+        i = 0
+        nb_parent = len(parents)
         for parent in parents:
             if not parent.data == 'imaginary':    
-                nt_graph.add_node(parent.data+str(nb_sub_graph))
+                nt_graph.add_node(parent.data+str(nb_sub_graph), x = depth * 200, y = (nb_sub_graph-1) *UNIT + int(UNIT - ((UNIT/nb_parent)*i)))
+            
                 nt_graph.add_edge(parent.data+str(nb_sub_graph), node.data+str(nb_sub_graph))
+                i +=1
         for parent in parents:
-            find_path_to_root(parent, nt_graph, nb_sub_graph)
+            find_path_to_root(parent, nt_graph, nb_sub_graph, depth)
 
 
 
@@ -177,11 +186,11 @@ def find_path_to_root(node, nt_graph, nb_sub_graph):
 def to_run():
     nt = Network('100%', '100%', directed = True)
     nt.toggle_drag_nodes(True)
-    nt.toggle_physics(True)
+    nt.toggle_physics(False)
     nt.toggle_stabilization(False)
 
     make_list_of_subgraph(nt, graph)
-
+    
     nt.show('graph.html')
 
 if __name__ == '__main__':
