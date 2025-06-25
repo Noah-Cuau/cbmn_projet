@@ -15,6 +15,34 @@ pos_dict = dict()
 rank_dict = dict()
 list_pos_taken = []
 
+
+class Sub_graph_nt:
+    def __init__(self, nb, start_node):
+        self.start_node = start_node
+        self.nb = nb
+        self.list_node = []
+        self.relativ_pos_node = dict()
+        self.list_node.append(start_node)
+        self.relativ_pos_node[start_node['id']] = (start_node['x'] -  self.start_node['x'], start_node['y'] -  self.start_node['y'])
+        
+    def add_node(self, node_nt):
+        self.list_node.append(node_nt)
+        self.relativ_pos_node[node_nt['id']] = (node_nt['x'] -  self.start_node['x'], node_nt['y'] -  self.start_node['y'])
+    def change_graph_start_pos(self, new_pos, nt_graph):
+        for node in self.list_node:
+
+            for i, node_nt in enumerate(nt_graph.nodes):
+                if node_nt['id'] == node['id']:
+                    node_index = i
+        nt_graph.nodes[node_index]['x'] = self.relativ_pos_node[node['id']][0] + new_pos[0]
+        nt_graph.nodes[node_index]['y'] = self.relativ_pos_node[node['id']][1] + new_pos[1]
+        # nt.nodes[node_index]['color'] = matplotlib.colors.to_hex(color_map[int((pos[1]*color_max)/rank_max)-1])
+
+def get_nx_node(id, nt_graph):
+    for i, node_nt in enumerate(nt_graph.nodes):
+                if node_nt['id'] == id:
+                    return node_nt
+
 def get_list_of_node_rec(node):
     node_list = [node.data]
     for child in node.get_children():
@@ -53,8 +81,12 @@ def get_nb_node(nt_graph, n_subgraph):
     ajd_matrix = nt_graph.get_adj_list()
     nb = 0
     for key in ajd_matrix.keys():
-        if int(key[:-2]) == n:
-            nb += 1
+        try:
+            if int(key[-2:]) == n_subgraph:
+                nb += 1
+        except:
+            if int(key[-1:]) == n_subgraph:
+                nb += 1
     return nb
 
 def find_node_from_data(graph, data):
@@ -126,6 +158,7 @@ def custom_from_nx(nt_graph, pos_dict, graph):
 def make_list_of_subgraph(nt_graph, graph):
     
     leave_list = []
+    sub_graph_obj_list = dict()
     node_list = get_list_of_node(graph)
     
     for node in node_list:
@@ -135,13 +168,22 @@ def make_list_of_subgraph(nt_graph, graph):
 
     nb_graph = 0
     for leave in leave_list:
+        
         nt_graph.add_node(leave+str(nb_graph), shape = 'diamond', x =0, y =nb_graph * UNIT )
-
-        find_path_to_root(find_node_from_data(graph, leave), nt_graph, nb_graph)
+        sub_graph_obj_list[nb_graph] = Sub_graph_nt(nb_graph,get_nx_node(leave+str(nb_graph), nt_graph))
+        find_path_to_root(find_node_from_data(graph, leave), nt_graph, nb_graph, sub_graph_obj_list[nb_graph])
         nb_graph +=1
+    nb_node_per_graph = []
+    for i in sub_graph_obj_list.keys():
+        nb_node_per_graph.append(((get_nb_node(nt_graph, i)), sub_graph_obj_list[i]))
+    nb_node_per_graph = sorted(nb_node_per_graph, key = lambda a : a[0])
+    for i, graph in enumerate(nb_node_per_graph):
+        graph[1].change_graph_start_pos((0, i*250), nt_graph)
+   
+
         
 
-def find_path_to_root(node, nt_graph, nb_sub_graph, depth = 0):
+def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0,):
         depth += 1
         parents = node.get_parents()
         i = 0
@@ -159,8 +201,9 @@ def find_path_to_root(node, nt_graph, nb_sub_graph, depth = 0):
             
                 nt_graph.add_edge(parent.data+str(nb_sub_graph), node.data+str(nb_sub_graph))
                 i +=1
+                sub_graph.add_node(get_nx_node(parent.data+str(nb_sub_graph), nt_graph))
         for parent in parents:
-            find_path_to_root(parent, nt_graph, nb_sub_graph, depth)
+            find_path_to_root(parent, nt_graph, nb_sub_graph,sub_graph, depth )
 
 
 
