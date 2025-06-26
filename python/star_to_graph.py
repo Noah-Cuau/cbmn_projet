@@ -1,6 +1,7 @@
 import os
 import sys
 import star_gate.star_gate.star_gate as sg
+from get_select_info import get_amount_particule, job_select_dir
 
 import graph
 
@@ -8,7 +9,7 @@ def read_starfile(filename):
     
     cargo = sg.StarGate()
     cargo.read(filename)
-
+    particle_per_select = get_amount_particule(job_select_dir)
     jobs = cargo.blocks['pipeline_processes']['table']
     jobs_dict = dict()
     first_job_name = False
@@ -33,6 +34,10 @@ def read_starfile(filename):
     node_dict = dict()
     for job_name in jobs_dict.keys():
         new_node = graph.Node(job_name)
+
+        if job_name[-7:][:-1] in particle_per_select.keys():
+            new_node.nb_particle = particle_per_select[job_name[-7:][:-1]]
+            print(new_node.nb_particle)
         node_dict[job_name] = new_node
     for job, edge in jobs_dict.items():
         if len(edge['input']) == 0:

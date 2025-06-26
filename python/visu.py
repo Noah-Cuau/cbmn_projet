@@ -4,6 +4,7 @@ import matplotlib.colors
 color_map = colormaps['plasma'].colors
 color_max = len(color_map)
 from star_to_graph import read_starfile
+import get_select_info
 import networkx as nx
 FILENAME = 'default_pipeline.star'
 PHYSICS = False
@@ -227,13 +228,21 @@ def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done 
     
         for parent in parents:
             if not parent.data == 'imaginary' or not parent.data in done:
-                done.append(parent.data)    
+                done.append(parent.data) 
+                if hasattr(parent, 'nb_particle'):
+                    print('hey')
+                    nb_particle = parent.nb_particle
+                else:
+                    nb_particle = False  
                 nt_graph.add_node(parent.data+str(nb_sub_graph), x = depth * 200, 
                 y = (nb_sub_graph-1) * UNIT + y_modif(i), 
                 color = matplotlib.colors.to_hex(color_map[depth*15]),
                 label = parent.data)
-                nt_graph.add_edge(parent.data+str(nb_sub_graph), node.data+str(nb_sub_graph))
-                i +=1
+                if not nb_particle:
+                    nt_graph.add_edge(parent.data+str(nb_sub_graph), node.data+str(nb_sub_graph), )
+                else:
+                    nt_graph.add_edge(parent.data+str(nb_sub_graph), node.data+str(nb_sub_graph), value = nb_particle, title =nb_particle )
+                    i +=1
                 sub_graph.add_node(get_nx_node(parent.data+str(nb_sub_graph), nt_graph))
         for parent in parents:
             find_path_to_root(parent, nt_graph, nb_sub_graph,sub_graph, depth, done )
@@ -271,7 +280,8 @@ def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done 
 
 
 def to_run():
-    nt = Network('100%', '100%', directed = True)
+    nt = Network('100%', '100%', directed = True,)
+
     nt.toggle_drag_nodes(True)
     nt.toggle_physics(False)
     nt.toggle_stabilization(False)
