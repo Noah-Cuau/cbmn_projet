@@ -198,24 +198,19 @@ def make_list_of_subgraph(nt_graph, graph):
         find_path_to_root(find_node_from_data(graph, leave), nt_graph, nb_graph, sub_graph_obj_list[nb_graph])
         nb_graph +=1
 
-  
-
     nb_node_per_graph = []
     for i in sub_graph_obj_list.keys():
         nb_node_per_graph.append((sub_graph_obj_list[i].max_x, sub_graph_obj_list[i]))
     nb_node_per_graph = sorted(nb_node_per_graph, key = lambda a : a[0])
     
 
-    for i, graph in enumerate(nb_node_per_graph):
+    for i, sub_graph in enumerate(nb_node_per_graph):
         pass
-        graph[1].change_graph_start_pos((0, i*UNIT*2), nt_graph)
+        sub_graph[1].change_graph_start_pos((0, i*UNIT*2), nt_graph)
     id = nt_graph.nodes.index(get_nx_node('imaginary0', nt_graph))
     nt_graph.nodes.pop(id)
+    scale_size_edges(nt_graph, graph.nb_particle)
 
-
-   
-
-        
 
 def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done = []):
 
@@ -229,25 +224,33 @@ def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done 
         for parent in parents:
             if not parent.data == 'imaginary' or not parent.data in done:
                 done.append(parent.data) 
-                if hasattr(parent, 'nb_particle'):
-                    print('hey')
-                    nb_particle = parent.nb_particle
-                else:
-                    nb_particle = False  
+
                 nt_graph.add_node(parent.data+str(nb_sub_graph), x = depth * 200, 
                 y = (nb_sub_graph-1) * UNIT + y_modif(i), 
                 color = matplotlib.colors.to_hex(color_map[depth*15]),
                 label = parent.data)
-                if not nb_particle:
-                    nt_graph.add_edge(parent.data+str(nb_sub_graph), node.data+str(nb_sub_graph), )
-                else:
-                    nt_graph.add_edge(parent.data+str(nb_sub_graph), node.data+str(nb_sub_graph), value = nb_particle, title =nb_particle )
-                    i +=1
+
+                nt_graph.add_edge(to = parent.data+str(nb_sub_graph), source = node.data+str(nb_sub_graph), )
+
+            
+                i +=1
                 sub_graph.add_node(get_nx_node(parent.data+str(nb_sub_graph), nt_graph))
         for parent in parents:
             find_path_to_root(parent, nt_graph, nb_sub_graph,sub_graph, depth, done )
         
+def scale_size_edges(nt_graph, max_particule):
+    for i_edge, edge in enumerate(nt_graph.edges):
+        node_name = edge['to']
+        print(node_name)
+        if node_name[-2] == '/':
+            print(find_node_from_data(graph, node_name[:-1]).data)
+            nb_particle = find_node_from_data(graph, node_name[:-1]).nb_particle
+        else:
+            nb_particle = find_node_from_data(graph, node_name[:-2]).nb_particle
         
+        new_width = int(nb_particle/max_particule) * 200
+        nt_graph.edges[i_edge]['width'] = new_width
+
 
 
 
@@ -281,7 +284,6 @@ def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done 
 
 def to_run():
     nt = Network('100%', '100%', directed = True,)
-
     nt.toggle_drag_nodes(True)
     nt.toggle_physics(False)
     nt.toggle_stabilization(False)
@@ -289,6 +291,31 @@ def to_run():
     make_list_of_subgraph(nt, graph)
     
     nt.show('graph.html')
+
+def to_run2():
+    #convert_graph(nx_graph, graph)
+    nt = Network('100%', '100%', directed = True)
+    nt.toggle_drag_nodes(True)
+    nt.toggle_physics(True)
+    nt.toggle_stabilization(False)
+    custom_from_nx(nt, pos_dict, graph)
+    nt.barnes_hut()
+    rank_max = get_longest_branch(graph)[0]
+
+
+
+    for node_id, pos in pos_dict.items():
+        if node_id == 'imaginary':
+            pass
+        else:
+            for i, node in enumerate(nt.nodes):
+                if node['id'] == node_id:
+                    node_index = i
+            nt.nodes[node_index]['x'] = pos[0][0]
+            nt.nodes[node_index]['y'] = pos[0][1]
+            nt.nodes[node_index]['color'] = matplotlib.colors.to_hex(color_map[int((pos[1]*color_max)/rank_max)-1])
+    nt.show('graph.html')
+
 
 if __name__ == '__main__':
     to_run()

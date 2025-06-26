@@ -28,9 +28,15 @@ class Node:
                 for node_2 in node.get_parents():
                     node_info['parents'].append(node_2.data)
                 node_info['rank'] = node.get_rank()
+                if hasattr(self, 'nb_particle'):
+                    aaa = self.nb_particle
+                else:
+                    aaa = None
+                node_info['nb_particle'] =aaa
                 result[data] = node_info
                 done.append(data)
                 result = node.get_graph(done, result)
+
         return result
     def set_rank(self,n):
         self.rank = n
@@ -41,8 +47,9 @@ class Node:
     
     def __str__(self):
         result = str()
+
         for key, item in self.get_graph().items():
-            result+= str(key) + ' : ' + str(item['parents']) + ' --> ' + str(item['children']) +  ' | ' + str(item['rank']) + '\n'
+            result+= str(key) + ' : ' + str(item['parents']) + ' --> ' + str(item['children']) +  ' | ' + str(item['nb_particle']) + '\n'
         return result 
 
 if __name__ == '__main__':
