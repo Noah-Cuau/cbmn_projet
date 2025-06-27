@@ -10,7 +10,12 @@ def read_starfile(filename):
     cargo = sg.StarGate()
     cargo.read(filename)
     particle_per_select = get_amount_particule(job_w_particle)
-    
+    key_list = list(particle_per_select.keys())
+    for key in key_list:
+        value = particle_per_select.pop(key)
+        new_key = key.replace('/particles.star', '')
+        new_key = new_key[-6:]
+        particle_per_select.update({new_key : value})
     print(particle_per_select)
     jobs = cargo.blocks['pipeline_processes']['table']
     jobs_dict = dict()
@@ -40,6 +45,7 @@ def read_starfile(filename):
 
         if job_name[-7:][:-1] in particle_per_select.keys():
             new_node.nb_particle = particle_per_select[job_name[-7:][:-1]]
+            print(job_name)
             node_select_list.append(new_node)
         node_dict[job_name] = new_node
     for job, edge in jobs_dict.items():

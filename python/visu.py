@@ -236,12 +236,14 @@ def scale_size_edges(nt_graph, max_particule):
     for i_edge, edge in enumerate(nt_graph.edges):
         node_name = edge['to']
         print(node_name)
-        if node_name[-2] == '/':
-            print(find_node_from_data(graph, node_name[:-1]).data)
-            nb_particle = find_node_from_data(graph, node_name[:-1]).nb_particle
-        else:
-            nb_particle = find_node_from_data(graph, node_name[:-2]).nb_particle
-        
+        try:
+            if node_name[-2] == '/':
+                print(find_node_from_data(graph, node_name[:-1]).data)
+                nb_particle = find_node_from_data(graph, node_name[:-1]).nb_particle
+            else:
+                nb_particle = find_node_from_data(graph, node_name[:-2]).nb_particle
+        except:
+            nb_particle = 1
         new_width = int(nb_particle/max_particule) * 200
         nt_graph.edges[i_edge]['width'] = new_width
 
