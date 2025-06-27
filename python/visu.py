@@ -218,21 +218,15 @@ def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done 
         parents = node.get_parents()
         i = 0
         nb_parent = len(parents)
-
         y_modif = lambda a : int(UNIT/2 + ((UNIT/nb_parent)*(a)))
-    
         for parent in parents:
             if not parent.data == 'imaginary' or not parent.data in done:
                 done.append(parent.data) 
-
                 nt_graph.add_node(parent.data+str(nb_sub_graph), x = depth * 200, 
                 y = (nb_sub_graph-1) * UNIT + y_modif(i), 
                 color = matplotlib.colors.to_hex(color_map[depth*15]),
                 label = parent.data)
-
-                nt_graph.add_edge(to = parent.data+str(nb_sub_graph), source = node.data+str(nb_sub_graph), )
-
-            
+                nt_graph.add_edge(to = parent.data+str(nb_sub_graph), source = node.data+str(nb_sub_graph), )            
                 i +=1
                 sub_graph.add_node(get_nx_node(parent.data+str(nb_sub_graph), nt_graph))
         for parent in parents:

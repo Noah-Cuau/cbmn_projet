@@ -1,7 +1,7 @@
 import os
 import sys
 import star_gate.star_gate.star_gate as sg
-from get_select_info import get_amount_particule, job_select_dir
+from get_select_info import get_amount_particule, job_w_particle
 
 import graph
 
@@ -9,7 +9,9 @@ def read_starfile(filename):
     
     cargo = sg.StarGate()
     cargo.read(filename)
-    particle_per_select = get_amount_particule(job_select_dir)
+    particle_per_select = get_amount_particule(job_w_particle)
+    
+    print(particle_per_select)
     jobs = cargo.blocks['pipeline_processes']['table']
     jobs_dict = dict()
     first_job_name = False
@@ -70,9 +72,6 @@ def read_starfile(filename):
         if len(node.get_children()) == 0 and not hasattr(node, 'nb_particle'):
             leave_without_part.append(node)
 
-    for leave in leave_without_part:
-        print(leave.data)
-        setting_particles_flux_leaves(leave)
     setting_ranks(minus_root)
     return node_dict['imaginary']
 
@@ -82,7 +81,6 @@ def setting_ranks(node):
    
     for child in node.get_children():
         if child.rank is None:
-        
             child.set_rank(node.rank+1)
         else:
             child.set_rank(max(node.rank + 1, child.rank))
@@ -90,23 +88,14 @@ def setting_ranks(node):
         setting_ranks(child)
 
 def set_particles_flux(node, nb_particle, particle_max):
-    if not hasattr(node, 'nb_particle'):
+    if  hasattr(node, 'nb_particle'):
+        if node.nb_particle > nb_particle:
             node.nb_particle = nb_particle
     else:
-        if node.nb_particle < nb_particle:
-            node.nb_particle = nb_particle
-    for parent in node.get_parents():
-        set_particles_flux(parent, nb_particle, particle_max)
-def setting_particles_flux_leaves(node):
-    for parent in node.get_parents():
-        if hasattr(parent, 'nb_particle'):
-            node.nb_particle = parent.nb_particle
-            return node.nb_particle
-    
-        
-    for parent in node.get_parents():
-        node.nb_particle = setting_particles_flux_leaves(parent)
-    return node.nb_particle
+         node.nb_particle = nb_particle  
+    for child in node.get_children():
+        set_particles_flux(child, nb_particle, particle_max)
+
 if __name__ == '__main__':
     graph_test = read_starfile('default_pipeline.star')
     print(graph_test)
