@@ -1,5 +1,6 @@
 from pyvis.network import Network
 from matplotlib import colormaps
+from math import log
 import matplotlib.colors
 color_map = colormaps['plasma'].colors
 color_max = len(color_map)
@@ -189,7 +190,8 @@ def make_list_of_subgraph(nt_graph, graph):
         if not node == 'imaginary':
             if find_node_from_data(graph, node).get_children() == []:
                 leave_list.append(node)
-
+        else:
+            max_particle = find_node_from_data(graph, node).max_particle
     nb_graph = 0
     for leave in leave_list:
         
@@ -209,7 +211,7 @@ def make_list_of_subgraph(nt_graph, graph):
         sub_graph[1].change_graph_start_pos((0, i*UNIT*2), nt_graph)
     id = nt_graph.nodes.index(get_nx_node('imaginary0', nt_graph))
     nt_graph.nodes.pop(id)
-    scale_size_edges(nt_graph, graph.nb_particle)
+    scale_size_edges(nt_graph, max_particle)
 
 
 def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done = []):
@@ -226,7 +228,7 @@ def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done 
                 y = (nb_sub_graph-1) * UNIT + y_modif(i), 
                 color = matplotlib.colors.to_hex(color_map[depth*15]),
                 label = parent.data)
-                nt_graph.add_edge(to = parent.data+str(nb_sub_graph), source = node.data+str(nb_sub_graph), )            
+                nt_graph.add_edge(to = parent.data+str(nb_sub_graph), source = node.data+str(nb_sub_graph)  )            
                 i +=1
                 sub_graph.add_node(get_nx_node(parent.data+str(nb_sub_graph), nt_graph))
         for parent in parents:
@@ -235,18 +237,16 @@ def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done 
 def scale_size_edges(nt_graph, max_particule):
     for i_edge, edge in enumerate(nt_graph.edges):
         node_name = edge['to']
-        print(node_name)
         try:
             if node_name[-2] == '/':
-                print(find_node_from_data(graph, node_name[:-1]).data)
                 nb_particle = find_node_from_data(graph, node_name[:-1]).nb_particle
             else:
                 nb_particle = find_node_from_data(graph, node_name[:-2]).nb_particle
         except:
             nb_particle = 1
-        new_width = int(nb_particle/max_particule) * 200
+        new_width = int(log(nb_particle*30+1)*(1/(log(max_particule*30+1)))* 10) 
         nt_graph.edges[i_edge]['width'] = new_width
-
+        nt_graph.edges[i_edge]['title'] = str(nb_particle) + ' : ' + str(new_width)
 
 
 

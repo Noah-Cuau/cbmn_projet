@@ -10,6 +10,10 @@ def read_starfile(filename):
     cargo = sg.StarGate()
     cargo.read(filename)
     particle_per_select = get_amount_particule(job_w_particle)
+    max_particle = 0
+    for value in particle_per_select.values():
+        if value > max_particle:
+            max_particle = value
     key_list = list(particle_per_select.keys())
     for key in key_list:
         value = particle_per_select.pop(key)
@@ -71,6 +75,7 @@ def read_starfile(filename):
             minus_root.add_child(node)
         
     node_dict['imaginary'] = minus_root
+    minus_root.max_particle = max_particle
     for node_select in node_select_list:
         set_particles_flux(node_select, node_select.nb_particle, max_particle)
     leave_without_part = []
