@@ -99,6 +99,66 @@
 "node": 19,
 "name": "Select/job097/",
 "colortype": 1
+},
+{
+"node": 20,
+"name": "AutoPick/job040/",
+"colortype": 2
+},
+{
+"node": 21,
+"name": "AutoPick/job041/",
+"colortype": 2
+},
+{
+"node": 22,
+"name": "AutoPick/job042/",
+"colortype": 2
+},
+{
+"node": 23,
+"name": "AutoPick/job043/",
+"colortype": 2
+},
+{
+"node": 24,
+"name": "AutoPick/job044/",
+"colortype": 2
+},
+{
+"node": 25,
+"name": "AutoPick/job045/",
+"colortype": 2
+},
+{
+"node": 26,
+"name": "AutoPick/job046/",
+"colortype": 2
+},
+{
+"node": 27,
+"name": "AutoPick/job047/",
+"colortype": 2
+},
+{
+"node": 28,
+"name": "Class3D/job064/",
+"colortype": 3
+},
+{
+"node": 29,
+"name": "Class3D/job073/",
+"colortype": 3
+},
+{
+"node": 30,
+"name": "InitialModel/job086/",
+"colortype": 4
+},
+{
+"node": 31,
+"name": "Refine3D/job098/",
+"colortype": 5
 }
 ],
 "links": [
@@ -119,6 +179,66 @@
 "target": 3,
 "value": 16,
 "nb_particle": 3043
+},
+{
+"source": 1,
+"target": 1,
+"value": 16,
+"nb_particle": 3043
+},
+{
+"source": 2,
+"target": 2,
+"value": 16,
+"nb_particle": 3043
+},
+{
+"source": 3,
+"target": 20,
+"value": 13,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 21,
+"value": 13,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 22,
+"value": 13,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 23,
+"value": 13,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 24,
+"value": 13,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 25,
+"value": 13,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 26,
+"value": 13,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 27,
+"value": 13,
+"nb_particle": 1108
 },
 {
 "source": 4,
@@ -151,6 +271,42 @@
 "nb_particle": 1435112
 },
 {
+"source": 5,
+"target": 5,
+"value": 27,
+"nb_particle": 571198
+},
+{
+"source": 6,
+"target": 6,
+"value": 27,
+"nb_particle": 571198
+},
+{
+"source": 7,
+"target": 7,
+"value": 25,
+"nb_particle": 184610
+},
+{
+"source": 8,
+"target": 28,
+"value": 27,
+"nb_particle": 458373
+},
+{
+"source": 8,
+"target": 29,
+"value": 27,
+"nb_particle": 458373
+},
+{
+"source": 9,
+"target": 9,
+"value": 20,
+"nb_particle": 17690
+},
+{
 "source": 10,
 "target": 11,
 "value": 29,
@@ -161,6 +317,18 @@
 "target": 12,
 "value": 29,
 "nb_particle": 1621879
+},
+{
+"source": 11,
+"target": 11,
+"value": 28,
+"nb_particle": 670070
+},
+{
+"source": 12,
+"target": 29,
+"value": 28,
+"nb_particle": 673271
 },
 {
 "source": 13,
@@ -199,6 +367,12 @@
 "nb_particle": 93245
 },
 {
+"source": 16,
+"target": 30,
+"value": 20,
+"nb_particle": 17535
+},
+{
 "source": 17,
 "target": 19,
 "value": 21,
@@ -209,6 +383,12 @@
 "target": 19,
 "value": 21,
 "nb_particle": 32941
+},
+{
+"source": 19,
+"target": 31,
+"value": 19,
+"nb_particle": 16084
 }
 ]
 }

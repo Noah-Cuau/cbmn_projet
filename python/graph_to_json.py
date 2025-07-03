@@ -2,8 +2,8 @@ from star_to_graph import *
 from math import log
 import os
 import json
-add_result_node = False
-JSON_FILENAME = 'sankey2.json'
+add_result_node = True
+JSON_FILENAME = 'sankey3.json'
 FILENAME = 'default_pipeline.star'
 DIR = '../../Seagate_basic/empiar-11998/' 
 log_scale_params = {
@@ -56,6 +56,16 @@ def look_for_relation(node, node_list):
             if not new in result: 
                 result += new 
         return result
+    
+def find_leave_descendant(node):
+    children = node.get_children()
+    if len(children) == 0:
+        return [node]
+    result = []
+    for child in children:
+        result += find_leave_descendant(child)
+    return result
+
 sankey_node_list_data = []
 for node in sankey_node_list:
     sankey_node_list_data.append(node.data)
@@ -75,13 +85,16 @@ for leave in sankey_leave_list:
     if to_remove:
          list_to_remove.append(leave)
     elif add_result_node:
-        for children in graph_dico[leave].get_children():
-            
-
-            sankey_node_list.append(children.data)
-            sankey_node_dict[children.data] = children
-            sankey_node_relation_dict[children.data] = list()
-            sankey_node_relation_dict[leave].append(children.data)
+        print('\n')
+        print(leave + ' : ', end=' ')
+        for children in find_leave_descendant(graph_dico[leave]):
+        #for children in graph_dico[leave].get_children():
+            if not children.data == leave:
+                print(children.data, end= ' ')
+                sankey_node_list.append(children.data)
+                sankey_node_dict[children.data] = children
+                sankey_node_relation_dict[children.data] = list()
+                sankey_node_relation_dict[leave].append(children.data)
 
 
 json_dict = dict()
@@ -122,5 +135,5 @@ for key, value in sankey_node_relation_dict.items():
 json_object = json.dumps(json_dict, indent = 0)
 if os.path.exists(JSON_FILENAME):
     os.remove(JSON_FILENAME)
-with open("sankey2.json", "w") as outfile:
+with open(JSON_FILENAME, "w") as outfile:
     outfile.write(json_object)
