@@ -1,5 +1,5 @@
 from star_to_graph import *
-from math import log
+from math import log, floor, exp
 import os
 import json
 add_result_node = True
@@ -7,6 +7,10 @@ JSON_FILENAME = 'sankey3.json'
 FILENAME = 'default_pipeline.star'
 DIR = '../../Seagate_basic/empiar-11998/' 
 log_scale_params = {
+    'upper_bound' : 30,
+    'coef' :  0.005
+}
+exp_scale_params = {
     'upper_bound' : 30,
     'coef' :  0.5
 }
@@ -16,8 +20,21 @@ def log_scale(nb_particle, max_particle):
         return int(log(nb_particle*log_scale_params['coef']+1)*(1/(log(max_particle*log_scale_params['coef']+1)))* log_scale_params['upper_bound'])
     else:
         return 1
-linear_scale = lambda  nb_particle, max_particle :  int((linear_scale_coef*nb_particle)/max_particle)
-scale = log_scale
+    
+def linear_scale(nb_particle, max_particle):
+    if nb_particle is not None:
+        return floor((linear_scale_coef*nb_particle)/max_particle)+1
+    else:
+        return 1
+    
+    
+def exp_scale(nb_particle, max_particle):
+    if nb_particle is not None:
+        return int(exp(nb_particle*exp_scale_params['coef']+1)*(1/(exp(max_particle*exp_scale_params['coef']+1)))* exp_scale_params['upper_bound'])
+    else:
+        return 1
+
+scale = exp_scale
 graph, graph_dico = read_starfile( DIR + FILENAME , True)
 
 sankey_node_dict = dict()

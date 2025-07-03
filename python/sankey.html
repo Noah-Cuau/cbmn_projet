@@ -60,7 +60,7 @@
       sankey
           .nodes(graph.nodes)
           .links(graph.links)
-          .layout(3);
+          .layout(2);
     
       
       // add in the links
@@ -102,8 +102,7 @@
           .style("stroke", function(d) { return d3.rgb(d.color).darker(2); });
         // Add hover text 
         
-      node.append('title')
-      .text(function(d) { return d.color + " particle"; });
+     
       // add in the title for the nodes
         node
           .append("text")
