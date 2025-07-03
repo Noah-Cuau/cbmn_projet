@@ -246,7 +246,7 @@ def scale_size_edges(nt_graph, max_particule):
             nb_particle = 1
         new_width = int(log(nb_particle*30+1)*(1/(log(max_particule*30+1)))* 10) 
         nt_graph.edges[i_edge]['width'] = new_width
-        nt_graph.edges[i_edge]['title'] = str(nb_particle) + ' : ' + str(new_width)
+        nt_graph.edges[i_edge]['title'] = str(nb_particle)
 
 
 
@@ -290,11 +290,14 @@ def to_run():
 
 def to_run2():
     #convert_graph(nx_graph, graph)
+    convert_graph(nx_graph, graph)
+
     nt = Network('100%', '100%', directed = True)
     nt.toggle_drag_nodes(True)
     nt.toggle_physics(True)
     nt.toggle_stabilization(False)
     custom_from_nx(nt, pos_dict, graph)
+    print(nt.nodes)
     nt.barnes_hut()
     rank_max = get_longest_branch(graph)[0]
 
@@ -307,14 +310,14 @@ def to_run2():
             for i, node in enumerate(nt.nodes):
                 if node['id'] == node_id:
                     node_index = i
-            nt.nodes[node_index]['x'] = pos[0][0]
-            nt.nodes[node_index]['y'] = pos[0][1]
+            #nt.nodes[node_index]['x'] = pos[0][0]
+            #nt.nodes[node_index]['y'] = pos[0][1]
             nt.nodes[node_index]['color'] = matplotlib.colors.to_hex(color_map[int((pos[1]*color_max)/rank_max)-1])
-    nt.show('graph.html')
+    nt.show('general_graph.html')
 
 
 if __name__ == '__main__':
-    to_run()
+    to_run2()
     pass
     #print('ha', len(get_list_of_node(graph)))
 

@@ -5,7 +5,7 @@ from get_select_info import get_amount_particule, job_w_particle
 
 import graph
 
-def read_starfile(filename):
+def read_starfile(filename, dico = False):
     
     cargo = sg.StarGate()
     cargo.read(filename)
@@ -20,7 +20,6 @@ def read_starfile(filename):
         new_key = key.replace('/particles.star', '')
         new_key = new_key[-6:]
         particle_per_select.update({new_key : value})
-    print(particle_per_select)
     jobs = cargo.blocks['pipeline_processes']['table']
     jobs_dict = dict()
     first_job_name = False
@@ -49,7 +48,6 @@ def read_starfile(filename):
 
         if job_name[-7:][:-1] in particle_per_select.keys():
             new_node.nb_particle = particle_per_select[job_name[-7:][:-1]]
-            print(job_name)
             node_select_list.append(new_node)
         node_dict[job_name] = new_node
     for job, edge in jobs_dict.items():
@@ -76,16 +74,18 @@ def read_starfile(filename):
         
     node_dict['imaginary'] = minus_root
     minus_root.max_particle = max_particle
-    for node_select in node_select_list:
-        set_particles_flux(node_select, node_select.nb_particle, max_particle)
+    # for node_select in node_select_list:
+    #     set_particles_flux(node_select, node_select.nb_particle, max_particle)
     leave_without_part = []
     for key, node in node_dict.items():
         if len(node.get_children()) == 0 and not hasattr(node, 'nb_particle'):
             leave_without_part.append(node)
 
     setting_ranks(minus_root)
-    return node_dict['imaginary']
-
+    if not dico:
+        return node_dict['imaginary']
+    else:
+        return (node_dict['imaginary'], node_dict)
 def setting_ranks(node):
     if len(node.get_parents()) == 0:
         node.set_rank(0)

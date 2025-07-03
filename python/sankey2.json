@@ -1,0 +1,214 @@
+{
+"nodes": [
+{
+"node": 0,
+"name": "Extract/job028/",
+"colortype": 0
+},
+{
+"node": 1,
+"name": "Select/job036/",
+"colortype": 1
+},
+{
+"node": 2,
+"name": "Select/job037/",
+"colortype": 1
+},
+{
+"node": 3,
+"name": "Select/job038/",
+"colortype": 1
+},
+{
+"node": 4,
+"name": "Extract/job049/",
+"colortype": 0
+},
+{
+"node": 5,
+"name": "Select/job051/",
+"colortype": 1
+},
+{
+"node": 6,
+"name": "Select/job052/",
+"colortype": 1
+},
+{
+"node": 7,
+"name": "Select/job053/",
+"colortype": 1
+},
+{
+"node": 8,
+"name": "Select/job055/",
+"colortype": 1
+},
+{
+"node": 9,
+"name": "Select/job059/",
+"colortype": 1
+},
+{
+"node": 10,
+"name": "Extract/job068/",
+"colortype": 0
+},
+{
+"node": 11,
+"name": "Select/job071/",
+"colortype": 1
+},
+{
+"node": 12,
+"name": "Select/job072/",
+"colortype": 1
+},
+{
+"node": 13,
+"name": "Extract/job074/",
+"colortype": 0
+},
+{
+"node": 14,
+"name": "Select/job079/",
+"colortype": 1
+},
+{
+"node": 15,
+"name": "Select/job081/",
+"colortype": 1
+},
+{
+"node": 16,
+"name": "Select/job084/",
+"colortype": 1
+},
+{
+"node": 17,
+"name": "Select/job085/",
+"colortype": 1
+},
+{
+"node": 18,
+"name": "Select/job087/",
+"colortype": 1
+},
+{
+"node": 19,
+"name": "Select/job097/",
+"colortype": 1
+}
+],
+"links": [
+{
+"source": 0,
+"target": 1,
+"value": 16,
+"nb_particle": 3043
+},
+{
+"source": 0,
+"target": 2,
+"value": 16,
+"nb_particle": 3043
+},
+{
+"source": 0,
+"target": 3,
+"value": 16,
+"nb_particle": 3043
+},
+{
+"source": 4,
+"target": 5,
+"value": 29,
+"nb_particle": 1435112
+},
+{
+"source": 4,
+"target": 6,
+"value": 29,
+"nb_particle": 1435112
+},
+{
+"source": 4,
+"target": 7,
+"value": 29,
+"nb_particle": 1435112
+},
+{
+"source": 4,
+"target": 8,
+"value": 29,
+"nb_particle": 1435112
+},
+{
+"source": 4,
+"target": 9,
+"value": 29,
+"nb_particle": 1435112
+},
+{
+"source": 10,
+"target": 11,
+"value": 29,
+"nb_particle": 1621879
+},
+{
+"source": 10,
+"target": 12,
+"value": 29,
+"nb_particle": 1621879
+},
+{
+"source": 13,
+"target": 14,
+"value": 28,
+"nb_particle": 754492
+},
+{
+"source": 14,
+"target": 15,
+"value": 25,
+"nb_particle": 250095
+},
+{
+"source": 15,
+"target": 16,
+"value": 23,
+"nb_particle": 93245
+},
+{
+"source": 15,
+"target": 17,
+"value": 23,
+"nb_particle": 93245
+},
+{
+"source": 15,
+"target": 18,
+"value": 23,
+"nb_particle": 93245
+},
+{
+"source": 15,
+"target": 19,
+"value": 23,
+"nb_particle": 93245
+},
+{
+"source": 17,
+"target": 19,
+"value": 21,
+"nb_particle": 42651
+},
+{
+"source": 18,
+"target": 19,
+"value": 21,
+"nb_particle": 32941
+}
+]
+}
