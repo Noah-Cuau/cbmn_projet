@@ -34,7 +34,7 @@ def exp_scale(nb_particle, max_particle):
     else:
         return 1
 
-scale = exp_scale
+scale = log_scale
 graph, graph_dico = read_starfile( DIR + FILENAME , True)
 
 sankey_node_dict = dict()
