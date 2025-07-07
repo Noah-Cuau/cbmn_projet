@@ -74,8 +74,10 @@ def read_starfile(filename, dico = False):
         
     node_dict['imaginary'] = minus_root
     minus_root.max_particle = max_particle
-    # for node_select in node_select_list:
-    #     set_particles_flux(node_select, node_select.nb_particle, max_particle)
+    for node in node_select_list:
+        print(node.data)
+    for node_select in node_select_list:
+         set_particles_flux(node_select, node_select.nb_particle)
     leave_without_part = []
     for key, node in node_dict.items():
         if len(node.get_children()) == 0 and not hasattr(node, 'nb_particle'):
@@ -98,14 +100,12 @@ def setting_ranks(node):
     for child in node.get_children():
         setting_ranks(child)
 
-def set_particles_flux(node, nb_particle, particle_max):
-    if  hasattr(node, 'nb_particle'):
-        if node.nb_particle < nb_particle:
-            node.nb_particle = nb_particle
-    else:
-         node.nb_particle = nb_particle  
-    for child in node.get_children():
-        set_particles_flux(child, nb_particle, particle_max)
+def set_particles_flux(node, nb_particle):
+    if  not hasattr(node, 'nb_particle'):
+   
+        node.nb_particle = nb_particle  
+        for child in node.get_children():
+            set_particles_flux(child, nb_particle,)
 
 if __name__ == '__main__':
     graph_test = read_starfile('default_pipeline.star')
