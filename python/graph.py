@@ -49,7 +49,7 @@ class Node:
         result = str()
 
         for key, item in self.get_graph().items():
-            result+= str(key) + ' : ' + str(item['parents']) + ' --> ' + str(item['children']) +  ' | ' + str(item['nb_particle']) + '\n'
+            result+= str(key) + ' : ' + str(item['parents']) + ' --> ' + str(item['children']) +  ' | ' + str(item['rank']) + '\n'
         return result 
 
 if __name__ == '__main__':

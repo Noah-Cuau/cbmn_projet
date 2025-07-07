@@ -3,7 +3,8 @@ from math import log, floor, exp
 import os
 import json
 add_result_node = True
-JSON_FILENAME = 'sankey3.json'
+JSON_FILENAME = 'sankey5.json'
+JSON_POS_FILENAME = 'sankey_pos4.json'
 FILENAME = 'default_pipeline.star'
 DIR = '../../Seagate_basic/empiar-11998/' 
 log_scale_params = {
@@ -33,16 +34,34 @@ def exp_scale(nb_particle, max_particle):
         return int(exp(nb_particle*exp_scale_params['coef']+1)*(1/(exp(max_particle*exp_scale_params['coef']+1)))* exp_scale_params['upper_bound'])
     else:
         return 1
-
+def get_list_file_with_particle(directory):
+    FILENAME = 'particles.star'
+    DIR = os.listdir(directory)
+    result = []
+    for dir in DIR:
+        try:
+            for job_dir in os.listdir(directory + dir):
+                path = directory + dir + '/' + job_dir + '/' + FILENAME
+                if os.path.exists(path):
+                    result.append(dir +'/' + job_dir + '/')
+        except:
+            pass
+    return result
 scale = log_scale
 graph, graph_dico = read_starfile( DIR + FILENAME , True)
 
 sankey_node_dict = dict()
 max_particle = 0
-for key, node in graph_dico.items():
-    if key[:6] == 'Select'  or key[:7] == 'Extract':
-        sankey_node_dict[key] = node
-        if hasattr(node, 'nb_particle'):
+rank_min = False
+for key in get_list_file_with_particle(DIR):
+    node = graph_dico[key]
+    if not rank_min:
+        rank_min = node.rank
+    if node.rank < rank_min:
+        rank_min = node.rank
+    
+    sankey_node_dict[key] = node
+    if hasattr(node, 'nb_particle'):
             if node.nb_particle > max_particle:
                 max_particle = node.nb_particle
 sankey_node_list = list(sankey_node_dict.values())
@@ -74,58 +93,90 @@ def look_for_relation(node, node_list):
                 result += new 
         return result
     
+def look_for_descendance(node):
+    children_list = node.get_children()
+    if len(children_list) == 0:
+        return [node.data]
+    else:
+        result = []
+        for child in children_list :
+            new = look_for_descendance(child) + [node.data]
+            if not new in result: 
+                result += new 
+        return result
+    
+    
 def find_leave_descendant(node):
     children = node.get_children()
     if len(children) == 0:
         return [node]
     result = []
     for child in children:
-        result += find_leave_descendant(child)
+        result += find_leave_descendant(child) 
     return result
 
-sankey_node_list_data = []
-for node in sankey_node_list:
-    sankey_node_list_data.append(node.data)
+
 sankey_node_relation_dict = dict()
+sankey_node_root_list = []
 for node in sankey_node_list:
-    sankey_node_relation_dict[node.data] = look_for_relation(node, sankey_node_list_data)
+    if node.rank == rank_min:
+        sankey_node_root_list.append(node)
+some_list = []
+for node in sankey_node_list:
+    some_list+= look_for_descendance(node)
+some_list = list(set(some_list))
+for key in some_list:
+    if not key in sankey_node_dict.keys():
+        sankey_node_dict[key] = graph_dico[key]
+for key,value in sankey_node_dict.items():
+    child_list = graph_dico[key].get_children()
+    child_name_list = []
+    for child in child_list:
+        child_name_list.append(child.data)
+    sankey_node_relation_dict[key] = child_name_list
+
 sankey_leave_list = []
 for key,value in sankey_node_relation_dict.items():
     if len(value) == 0:
         sankey_leave_list.append(key)
 list_to_remove = []
-for leave in sankey_leave_list:
-    to_remove = True
-    for relation in sankey_node_relation_dict.values():
-        if leave in relation:
-                to_remove = False
-    if to_remove:
-         list_to_remove.append(leave)
-    elif add_result_node:
-        print('\n')
-        print(leave + ' : ', end=' ')
-        for children in find_leave_descendant(graph_dico[leave]):
-        #for children in graph_dico[leave].get_children():
-            if not children.data == leave:
-                print(children.data, end= ' ')
-                sankey_node_list.append(children.data)
-                sankey_node_dict[children.data] = children
-                sankey_node_relation_dict[children.data] = list()
-                sankey_node_relation_dict[leave].append(children.data)
+# for leave in sankey_leave_list:
+#     to_remove = True
+#     for relation in sankey_node_relation_dict.values():
+#         if leave in relation:
+#                 to_remove = False
+#     if to_remove:
+#          list_to_remove.append(leave)
+#     elif add_result_node:
+
+#         for children in find_leave_descendant(graph_dico[leave]):
+#         #for children in graph_dico[leave].get_children():
+#             if not children.data == leave:
+#                 sankey_node_list.append(children.data)
+#                 sankey_node_dict[children.data] = children
+#                 sankey_node_relation_dict[children.data] = list()
+#                 sankey_node_relation_dict[leave].append(children.data)
 
 
 json_dict = dict()
 json_dict['nodes'] = list()
+pos_json_obj = list()
 index_by_name = dict()
 i = 0
 index_colortype = list()
-
+y_change = dict()
 for key in sankey_node_relation_dict.keys():
     if not key in list_to_remove:
         if not key[:3] in index_colortype:
             index_colortype.append(key[:3])
 
-        json_dict['nodes'].append({'node' : i, 'name' : key, 'colortype' : index_colortype.index(key[:3]) })
+        json_dict['nodes'].append({'node' : i, 
+                                   'name' : key, 
+                                   'colortype' : index_colortype.index(key[:3])})
+        if not graph_dico[key].rank in y_change.keys():
+            y_change[graph_dico[key].rank] = 0
+        pos_json_obj.append([key, graph_dico[key].rank])
+        y_change[graph_dico[key].rank] += 50
         index_by_name[key] = i
         i+=1
 json_dict['links'] = list()
@@ -140,17 +191,21 @@ for key, value in sankey_node_relation_dict.items():
         for node_name in value:
             node = graph_dico[key]
             if hasattr(node, 'nb_particle'):
-                nb_particle = graph_dico[key].nb_particle
-
-
-                
-            json_dict['links'].append({'source' : index_by_name[key], 
-                                   'target' : index_by_name[node_name],
+                nb_particle = graph_dico[key].nb_particle  
+            print(key)
+            json_dict['links'].append({'source' : key, 
+                                   'target' : node_name,
                                    'value' : scale(nb_particle, max_particle),
                                    'nb_particle' : nb_particle})
-    
+print(json_dict)
+  
 json_object = json.dumps(json_dict, indent = 0)
+json_pos_obj = json.dumps(pos_json_obj, indent = 0)
 if os.path.exists(JSON_FILENAME):
     os.remove(JSON_FILENAME)
 with open(JSON_FILENAME, "w") as outfile:
     outfile.write(json_object)
+if os.path.exists(JSON_POS_FILENAME):
+    os.remove(JSON_POS_FILENAME)
+with open(JSON_POS_FILENAME, "w") as outfile:
+    outfile.write(json_pos_obj)

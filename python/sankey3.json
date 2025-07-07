@@ -3,348 +3,412 @@
 {
 "node": 0,
 "name": "Extract/job028/",
-"colortype": 0
+"colortype": 0,
+"mx": 250,
+"my": 350
 },
 {
 "node": 1,
 "name": "Select/job036/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 2,
 "name": "Select/job037/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 3,
 "name": "Select/job038/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 4,
 "name": "Extract/job049/",
-"colortype": 0
+"colortype": 0,
+"mx": 250,
+"my": 350
 },
 {
 "node": 5,
 "name": "Select/job051/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 6,
 "name": "Select/job052/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 7,
 "name": "Select/job053/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 8,
 "name": "Select/job055/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 9,
 "name": "Select/job059/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 10,
 "name": "Extract/job068/",
-"colortype": 0
+"colortype": 0,
+"mx": 250,
+"my": 350
 },
 {
 "node": 11,
 "name": "Select/job071/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 12,
 "name": "Select/job072/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 13,
 "name": "Extract/job074/",
-"colortype": 0
+"colortype": 0,
+"mx": 250,
+"my": 350
 },
 {
 "node": 14,
 "name": "Select/job079/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 15,
 "name": "Select/job081/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 16,
 "name": "Select/job084/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 17,
 "name": "Select/job085/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 18,
 "name": "Select/job087/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 19,
 "name": "Select/job097/",
-"colortype": 1
+"colortype": 1,
+"mx": 250,
+"my": 350
 },
 {
 "node": 20,
 "name": "AutoPick/job040/",
-"colortype": 2
+"colortype": 2,
+"mx": 250,
+"my": 350
 },
 {
 "node": 21,
 "name": "AutoPick/job041/",
-"colortype": 2
+"colortype": 2,
+"mx": 250,
+"my": 350
 },
 {
 "node": 22,
 "name": "AutoPick/job042/",
-"colortype": 2
+"colortype": 2,
+"mx": 250,
+"my": 350
 },
 {
 "node": 23,
 "name": "AutoPick/job043/",
-"colortype": 2
+"colortype": 2,
+"mx": 250,
+"my": 350
 },
 {
 "node": 24,
 "name": "AutoPick/job044/",
-"colortype": 2
+"colortype": 2,
+"mx": 250,
+"my": 350
 },
 {
 "node": 25,
 "name": "AutoPick/job045/",
-"colortype": 2
+"colortype": 2,
+"mx": 250,
+"my": 350
 },
 {
 "node": 26,
 "name": "AutoPick/job046/",
-"colortype": 2
+"colortype": 2,
+"mx": 250,
+"my": 350
 },
 {
 "node": 27,
 "name": "AutoPick/job047/",
-"colortype": 2
+"colortype": 2,
+"mx": 250,
+"my": 350
 },
 {
 "node": 28,
 "name": "Class3D/job064/",
-"colortype": 3
+"colortype": 3,
+"mx": 250,
+"my": 350
 },
 {
 "node": 29,
 "name": "Class3D/job073/",
-"colortype": 3
+"colortype": 3,
+"mx": 250,
+"my": 350
 },
 {
 "node": 30,
 "name": "InitialModel/job086/",
-"colortype": 4
+"colortype": 4,
+"mx": 250,
+"my": 350
 },
 {
 "node": 31,
 "name": "Refine3D/job098/",
-"colortype": 5
+"colortype": 5,
+"mx": 250,
+"my": 350
 }
 ],
 "links": [
 {
-"source": 0,
-"target": 1,
+"source": "Extract/job028/",
+"target": "Select/job036/",
 "value": 9,
 "nb_particle": 3043
 },
 {
-"source": 0,
-"target": 2,
+"source": "Extract/job028/",
+"target": "Select/job037/",
 "value": 9,
 "nb_particle": 3043
 },
 {
-"source": 0,
-"target": 3,
+"source": "Extract/job028/",
+"target": "Select/job038/",
 "value": 9,
 "nb_particle": 3043
 },
 {
-"source": 3,
-"target": 20,
+"source": "Select/job038/",
+"target": "AutoPick/job040/",
 "value": 6,
 "nb_particle": 1108
 },
 {
-"source": 3,
-"target": 21,
+"source": "Select/job038/",
+"target": "AutoPick/job041/",
 "value": 6,
 "nb_particle": 1108
 },
 {
-"source": 3,
-"target": 22,
+"source": "Select/job038/",
+"target": "AutoPick/job042/",
 "value": 6,
 "nb_particle": 1108
 },
 {
-"source": 3,
-"target": 23,
+"source": "Select/job038/",
+"target": "AutoPick/job043/",
 "value": 6,
 "nb_particle": 1108
 },
 {
-"source": 3,
-"target": 24,
+"source": "Select/job038/",
+"target": "AutoPick/job044/",
 "value": 6,
 "nb_particle": 1108
 },
 {
-"source": 3,
-"target": 25,
+"source": "Select/job038/",
+"target": "AutoPick/job045/",
 "value": 6,
 "nb_particle": 1108
 },
 {
-"source": 3,
-"target": 26,
+"source": "Select/job038/",
+"target": "AutoPick/job046/",
 "value": 6,
 "nb_particle": 1108
 },
 {
-"source": 3,
-"target": 27,
+"source": "Select/job038/",
+"target": "AutoPick/job047/",
 "value": 6,
 "nb_particle": 1108
 },
 {
-"source": 4,
-"target": 5,
+"source": "Extract/job049/",
+"target": "Select/job051/",
 "value": 29,
 "nb_particle": 1435112
 },
 {
-"source": 4,
-"target": 6,
+"source": "Extract/job049/",
+"target": "Select/job052/",
 "value": 29,
 "nb_particle": 1435112
 },
 {
-"source": 4,
-"target": 7,
+"source": "Extract/job049/",
+"target": "Select/job053/",
 "value": 29,
 "nb_particle": 1435112
 },
 {
-"source": 4,
-"target": 8,
+"source": "Extract/job049/",
+"target": "Select/job055/",
 "value": 29,
 "nb_particle": 1435112
 },
 {
-"source": 4,
-"target": 9,
+"source": "Extract/job049/",
+"target": "Select/job059/",
 "value": 29,
 "nb_particle": 1435112
 },
 {
-"source": 8,
-"target": 28,
+"source": "Select/job055/",
+"target": "Class3D/job064/",
 "value": 25,
 "nb_particle": 458373
 },
 {
-"source": 8,
-"target": 29,
+"source": "Select/job055/",
+"target": "Class3D/job073/",
 "value": 25,
 "nb_particle": 458373
 },
 {
-"source": 10,
-"target": 11,
+"source": "Extract/job068/",
+"target": "Select/job071/",
 "value": 30,
 "nb_particle": 1621879
 },
 {
-"source": 10,
-"target": 12,
+"source": "Extract/job068/",
+"target": "Select/job072/",
 "value": 30,
 "nb_particle": 1621879
 },
 {
-"source": 12,
-"target": 29,
+"source": "Select/job072/",
+"target": "Class3D/job073/",
 "value": 27,
 "nb_particle": 673271
 },
 {
-"source": 13,
-"target": 14,
+"source": "Extract/job074/",
+"target": "Select/job079/",
 "value": 27,
 "nb_particle": 754492
 },
 {
-"source": 14,
-"target": 15,
+"source": "Select/job079/",
+"target": "Select/job081/",
 "value": 23,
 "nb_particle": 250095
 },
 {
-"source": 15,
-"target": 16,
+"source": "Select/job081/",
+"target": "Select/job084/",
 "value": 20,
 "nb_particle": 93245
 },
 {
-"source": 15,
-"target": 17,
+"source": "Select/job081/",
+"target": "Select/job085/",
 "value": 20,
 "nb_particle": 93245
 },
 {
-"source": 15,
-"target": 18,
+"source": "Select/job081/",
+"target": "Select/job087/",
 "value": 20,
 "nb_particle": 93245
 },
 {
-"source": 15,
-"target": 19,
+"source": "Select/job081/",
+"target": "Select/job097/",
 "value": 20,
 "nb_particle": 93245
 },
 {
-"source": 16,
-"target": 30,
+"source": "Select/job084/",
+"target": "InitialModel/job086/",
 "value": 14,
 "nb_particle": 17535
 },
 {
-"source": 17,
-"target": 19,
+"source": "Select/job085/",
+"target": "Select/job097/",
 "value": 17,
 "nb_particle": 42651
 },
 {
-"source": 18,
-"target": 19,
+"source": "Select/job087/",
+"target": "Select/job097/",
 "value": 17,
 "nb_particle": 32941
 },
 {
-"source": 19,
-"target": 31,
+"source": "Select/job097/",
+"target": "Refine3D/job098/",
 "value": 14,
 "nb_particle": 16084
 }

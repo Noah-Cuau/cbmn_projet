@@ -49,10 +49,7 @@
         .nodeWidth(100)
         .nodePadding(10)
         .size([width, height]);
-    function  ChangeLayout() {
-      sankey = sankey.layout(1);
-      sankey = sankey.relayout();
-    };
+    
     // load the data
     d3.json("sankey3.json", function(error, graph) {
     
@@ -60,7 +57,7 @@
       sankey
           .nodes(graph.nodes)
           .links(graph.links)
-          .layout(2);
+          .layout(1);
     
       
       // add in the links
@@ -89,8 +86,11 @@
             .on("drag", dragmove))
             .on("start", function() { this.parentNode.appendChild(this); })
           .attr("class", "node")
-          .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-          ;
+
+          .attr("transform", function(d) { return "translate(" + 0 + "," + 0 + ")"; })
+          .attr('dx', 250)
+          .attr('dy', 250);
+          link.attr("d", sankey.link() );
             
     
       // add the rectangles for the nodes
@@ -99,7 +99,8 @@
           .attr("height", function(d) { return d.dy; })
           .attr("width", sankey.nodeWidth())
           .style("fill", function(d) { return d.color = color(d.colortype); })
-          .style("stroke", function(d) { return d3.rgb(d.color).darker(2); });
+          .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
+  
         // Add hover text 
         
      
@@ -127,11 +128,11 @@
                    + (d.y = Math.max(
                       0, Math.min(height - d.dy, d3.event.y))
                      ) + ")");
-        sankey.relayout();
+        //sankey.relayout();
         link.attr("d", sankey.link() );
       }
       
-    
+
     });
     
     
