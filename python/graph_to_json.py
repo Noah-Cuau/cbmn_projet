@@ -3,7 +3,7 @@ from math import log, floor, exp
 import os
 import json
 add_result_node = True
-JSON_FILENAME = 'sankey5.json'
+JSON_FILENAME = 'sankey6.json'
 JSON_POS_FILENAME = 'sankey_pos4.json'
 FILENAME = 'default_pipeline.star'
 DIR = '../../Seagate_basic/empiar-11998/' 
@@ -128,8 +128,11 @@ some_list = list(set(some_list))
 for key in some_list:
     if not key in sankey_node_dict.keys():
         sankey_node_dict[key] = graph_dico[key]
+list_to_remove = []
+
 for key,value in sankey_node_dict.items():
     child_list = graph_dico[key].get_children()
+
     child_name_list = []
     for child in child_list:
         child_name_list.append(child.data)
@@ -139,7 +142,6 @@ sankey_leave_list = []
 for key,value in sankey_node_relation_dict.items():
     if len(value) == 0:
         sankey_leave_list.append(key)
-list_to_remove = []
 # for leave in sankey_leave_list:
 #     to_remove = True
 #     for relation in sankey_node_relation_dict.values():
@@ -157,6 +159,14 @@ list_to_remove = []
 #                 sankey_node_relation_dict[children.data] = list()
 #                 sankey_node_relation_dict[leave].append(children.data)
 
+for key in sankey_node_relation_dict.keys():
+    if len(graph_dico[key].get_children()) == 0:
+        to_remove = True
+        for key_2, relation in sankey_node_relation_dict.items():
+            if key in relation:
+                to_remove = False
+        if to_remove:
+            list_to_remove.append(key)
 
 json_dict = dict()
 json_dict['nodes'] = list()
@@ -192,12 +202,10 @@ for key, value in sankey_node_relation_dict.items():
             node = graph_dico[key]
             if hasattr(node, 'nb_particle'):
                 nb_particle = graph_dico[key].nb_particle  
-            print(key)
             json_dict['links'].append({'source' : key, 
                                    'target' : node_name,
                                    'value' : scale(nb_particle, max_particle),
                                    'nb_particle' : nb_particle})
-print(json_dict)
   
 json_object = json.dumps(json_dict, indent = 0)
 json_pos_obj = json.dumps(pos_json_obj, indent = 0)

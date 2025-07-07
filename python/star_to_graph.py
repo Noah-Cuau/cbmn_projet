@@ -100,7 +100,7 @@ def setting_ranks(node):
 
 def set_particles_flux(node, nb_particle, particle_max):
     if  hasattr(node, 'nb_particle'):
-        if node.nb_particle > nb_particle:
+        if node.nb_particle < nb_particle:
             node.nb_particle = nb_particle
     else:
          node.nb_particle = nb_particle  
