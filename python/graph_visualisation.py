@@ -35,9 +35,11 @@ class Sub_graph_nt:
 
             self.list_node.append(node_nt)
             self.relativ_pos_node[node_nt['id']] = (node_nt['x'] -  self.start_node['x'], node_nt['y'] -  self.start_node['y'])
-            if node_nt['x'] -  self.start_node['x'] > self.max_x :
-                self.max_x =  node_nt['x'] -  self.start_node['x']
+            if abs(node_nt['x'] -  self.start_node['x']) > self.max_x :
+                self.max_x = abs( node_nt['x'] -  self.start_node['x'])
     def change_graph_start_pos(self, new_pos, nt_graph):
+        if new_pos[0] == 'graph_length':
+            new_pos = (self.max_x, new_pos[1])
         for node in self.list_node:
             for i, node_nt in enumerate(nt_graph.nodes):
                 if node_nt['id'] == node['id']:
@@ -208,7 +210,7 @@ def make_list_of_subgraph(nt_graph, graph):
 
     for i, sub_graph in enumerate(nb_node_per_graph):
         pass
-        sub_graph[1].change_graph_start_pos((0, i*UNIT*2), nt_graph)
+        sub_graph[1].change_graph_start_pos(('graph_length', i*UNIT*2), nt_graph)
     id = nt_graph.nodes.index(get_nx_node('imaginary0', nt_graph))
     nt_graph.nodes.pop(id)
     #scale_size_edges(nt_graph, max_particle)
@@ -224,8 +226,8 @@ def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done 
         for parent in parents:
             if not parent.data == 'imaginary' or not parent.data in done:
                 done.append(parent.data) 
-                nt_graph.add_node(parent.data+str(nb_sub_graph), x = depth * 200, 
-                y = (nb_sub_graph-1) * UNIT + y_modif(i), 
+                nt_graph.add_node(parent.data+str(nb_sub_graph), x = depth * 200 * -1, 
+                y = ((nb_sub_graph-1) * UNIT + y_modif(i)), 
                 color = matplotlib.colors.to_hex(color_map[depth*15]),
                 label = parent.data)
                 nt_graph.add_edge(to = parent.data+str(nb_sub_graph), source = node.data+str(nb_sub_graph)  )            
