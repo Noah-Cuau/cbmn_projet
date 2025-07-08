@@ -197,7 +197,7 @@ def make_list_of_subgraph(nt_graph, graph):
     nb_graph = 0
     for leave in leave_list:
         
-        nt_graph.add_node( leave+str(nb_graph), shape = 'diamond', x =0, y =nb_graph * UNIT, color = matplotlib.colors.to_hex(color_map[0]), label = leave)
+        nt_graph.add_node( leave+str(nb_graph), shape = 'diamond', x =find_node_from_data(graph, leave).rank *200, y =nb_graph * UNIT, color = matplotlib.colors.to_hex(color_map[0]), label = leave)
         sub_graph_obj_list[nb_graph] = Sub_graph_nt(nb_graph,get_nx_node(leave+str(nb_graph), nt_graph))
         find_path_to_root(find_node_from_data(graph, leave), nt_graph, nb_graph, sub_graph_obj_list[nb_graph])
         nb_graph +=1
@@ -226,7 +226,7 @@ def find_path_to_root(node, nt_graph, nb_sub_graph,  sub_graph, depth = 0, done 
         for parent in parents:
             if not parent.data == 'imaginary' or not parent.data in done:
                 done.append(parent.data) 
-                nt_graph.add_node(parent.data+str(nb_sub_graph), x = depth * 200 * -1, 
+                nt_graph.add_node(parent.data+str(nb_sub_graph), x = parent.rank* 200 , 
                 y = ((nb_sub_graph-1) * UNIT + y_modif(i)), 
                 color = matplotlib.colors.to_hex(color_map[depth*15]),
                 label = parent.data)
