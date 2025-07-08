@@ -299,7 +299,6 @@ def to_run2():
     nt.toggle_physics(True)
     nt.toggle_stabilization(False)
     custom_from_nx(nt, pos_dict, graph)
-    print(nt.nodes)
     nt.barnes_hut()
     rank_max = get_longest_branch(graph)[0]
 
