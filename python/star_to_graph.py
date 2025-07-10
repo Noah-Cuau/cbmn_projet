@@ -74,8 +74,7 @@ def read_starfile(filename, dico = False):
         
     node_dict['imaginary'] = minus_root
     minus_root.max_particle = max_particle
-    for node in node_select_list:
-        print(node.data)
+
     for node_select in node_select_list:
          set_particles_flux(node_select, node_select.nb_particle)
     leave_without_part = []

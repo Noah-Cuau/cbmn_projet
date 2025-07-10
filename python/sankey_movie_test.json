@@ -1,0 +1,181 @@
+{
+"links": [
+{
+"source": "Class3D/job096/",
+"target": "Refine3D/job098/",
+"value": 0
+},
+{
+"source": "Select/job097/",
+"target": "Refine3D/job098/",
+"value": 0
+},
+{
+"source": "Select/job085/",
+"target": "Class3D/job096/",
+"value": 1
+},
+{
+"source": "InitialModel/job088/",
+"target": "Class3D/job096/",
+"value": 1
+},
+{
+"source": "MaskCreate/job093/",
+"target": "Class3D/job096/",
+"value": 1
+},
+{
+"source": "Class2D/job083/",
+"target": "Select/job085/",
+"value": 1
+},
+{
+"source": "Select/job081/",
+"target": "Class2D/job083/",
+"value": 2
+},
+{
+"source": "Class2D/job080/",
+"target": "Select/job081/",
+"value": 2
+},
+{
+"source": "Select/job079/",
+"target": "Class2D/job080/",
+"value": 4
+},
+{
+"source": "Class2D/job078/",
+"target": "Select/job079/",
+"value": 4
+},
+{
+"source": "Extract/job074/",
+"target": "Class2D/job078/",
+"value": 10
+},
+{
+"source": "CtfFind/job007/",
+"target": "Extract/job074/",
+"value": 10
+},
+{
+"source": "AutoPick/job067/",
+"target": "Extract/job074/",
+"value": 10
+},
+{
+"source": "MotionCorr/job006/",
+"target": "CtfFind/job007/",
+"value": 5
+},
+{
+"source": "Select/job087/",
+"target": "InitialModel/job088/",
+"value": 1
+},
+{
+"source": "Refine3D/job092/",
+"target": "MaskCreate/job093/",
+"value": 5
+},
+{
+"source": "Class3D/job089/",
+"target": "Refine3D/job092/",
+"value": 2
+}
+],
+"nodes": [
+{
+"node": 0,
+"name": "Refine3D/job098/",
+"colortype": 0
+},
+{
+"node": 1,
+"name": "Class3D/job096/",
+"colortype": 0
+},
+{
+"node": 2,
+"name": "Select/job085/",
+"colortype": 0
+},
+{
+"node": 3,
+"name": "Class2D/job083/",
+"colortype": 0
+},
+{
+"node": 4,
+"name": "Select/job081/",
+"colortype": 0
+},
+{
+"node": 5,
+"name": "Class2D/job080/",
+"colortype": 0
+},
+{
+"node": 6,
+"name": "Select/job079/",
+"colortype": 0
+},
+{
+"node": 7,
+"name": "Class2D/job078/",
+"colortype": 0
+},
+{
+"node": 8,
+"name": "Extract/job074/",
+"colortype": 0
+},
+{
+"node": 9,
+"name": "CtfFind/job007/",
+"colortype": 0
+},
+{
+"node": 10,
+"name": "MotionCorr/job006/",
+"colortype": 0
+},
+{
+"node": 11,
+"name": "AutoPick/job067/",
+"colortype": 0
+},
+{
+"node": 12,
+"name": "InitialModel/job088/",
+"colortype": 0
+},
+{
+"node": 13,
+"name": "Select/job087/",
+"colortype": 0
+},
+{
+"node": 14,
+"name": "MaskCreate/job093/",
+"colortype": 0
+},
+{
+"node": 15,
+"name": "Refine3D/job092/",
+"colortype": 0
+},
+{
+"node": 16,
+"name": "Class3D/job089/",
+"colortype": 0
+},
+{
+"node": 17,
+"name": "Select/job097/",
+"colortype": 0
+}
+]
+}

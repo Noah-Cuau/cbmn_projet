@@ -1,0 +1,130 @@
+{
+"Extract/job028/": [
+250,
+0
+],
+"Select/job036/": [
+350,
+0
+],
+"Select/job037/": [
+350,
+50
+],
+"Select/job038/": [
+350,
+100
+],
+"Extract/job049/": [
+250,
+50
+],
+"Select/job051/": [
+350,
+150
+],
+"Select/job052/": [
+350,
+200
+],
+"Select/job053/": [
+350,
+250
+],
+"Select/job055/": [
+350,
+300
+],
+"Select/job059/": [
+350,
+350
+],
+"Extract/job068/": [
+250,
+100
+],
+"Select/job071/": [
+350,
+400
+],
+"Select/job072/": [
+350,
+450
+],
+"Extract/job074/": [
+250,
+150
+],
+"Select/job079/": [
+350,
+500
+],
+"Select/job081/": [
+450,
+0
+],
+"Select/job084/": [
+550,
+0
+],
+"Select/job085/": [
+0,
+50
+],
+"Select/job087/": [
+550,
+100
+],
+"Select/job097/": [
+850,
+0
+],
+"AutoPick/job040/": [
+400,
+0
+],
+"AutoPick/job041/": [
+400,
+50
+],
+"AutoPick/job042/": [
+400,
+100
+],
+"AutoPick/job043/": [
+400,
+150
+],
+"AutoPick/job044/": [
+400,
+200
+],
+"AutoPick/job045/": [
+400,
+250
+],
+"AutoPick/job046/": [
+400,
+300
+],
+"AutoPick/job047/": [
+400,
+350
+],
+"Class3D/job064/": [
+450,
+50
+],
+"Class3D/job073/": [
+450,
+100
+],
+"InitialModel/job086/": [
+600,
+0
+],
+"Refine3D/job098/": [
+900,
+0
+]
+}
