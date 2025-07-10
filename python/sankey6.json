@@ -122,103 +122,103 @@
 },
 {
 "node": 24,
-"name": "Class2D/job078/",
-"colortype": 2
-},
-{
-"node": 25,
-"name": "PostProcess/job094/",
-"colortype": 3
-},
-{
-"node": 26,
-"name": "AutoPick/job040/",
-"colortype": 4
-},
-{
-"node": 27,
-"name": "Class3D/job096/",
-"colortype": 2
-},
-{
-"node": 28,
-"name": "Class3D/job064/",
-"colortype": 2
-},
-{
-"node": 29,
-"name": "Class3D/job089/",
-"colortype": 2
-},
-{
-"node": 30,
-"name": "AutoPick/job046/",
-"colortype": 4
-},
-{
-"node": 31,
-"name": "Refine3D/job098/",
-"colortype": 5
-},
-{
-"node": 32,
-"name": "MaskCreate/job093/",
-"colortype": 6
-},
-{
-"node": 33,
-"name": "Class2D/job066/",
-"colortype": 2
-},
-{
-"node": 34,
-"name": "AutoPick/job042/",
-"colortype": 4
-},
-{
-"node": 35,
-"name": "Class3D/job073/",
-"colortype": 2
-},
-{
-"node": 36,
-"name": "InitialModel/job086/",
-"colortype": 7
-},
-{
-"node": 37,
-"name": "Class2D/job016/",
-"colortype": 2
-},
-{
-"node": 38,
-"name": "Class2D/job015/",
-"colortype": 2
-},
-{
-"node": 39,
 "name": "Class2D/job026/",
 "colortype": 2
 },
 {
-"node": 40,
-"name": "Refine3D/job091/",
+"node": 25,
+"name": "Class3D/job096/",
+"colortype": 2
+},
+{
+"node": 26,
+"name": "Refine3D/job095/",
+"colortype": 3
+},
+{
+"node": 27,
+"name": "Class2D/job076/",
+"colortype": 2
+},
+{
+"node": 28,
+"name": "AutoPick/job042/",
+"colortype": 4
+},
+{
+"node": 29,
+"name": "PostProcess/job094/",
 "colortype": 5
 },
 {
-"node": 41,
+"node": 30,
+"name": "Class2D/job077/",
+"colortype": 2
+},
+{
+"node": 31,
+"name": "Class3D/job089/",
+"colortype": 2
+},
+{
+"node": 32,
+"name": "AutoPick/job040/",
+"colortype": 4
+},
+{
+"node": 33,
+"name": "Class2D/job015/",
+"colortype": 2
+},
+{
+"node": 34,
 "name": "Class2D/job083/",
 "colortype": 2
 },
 {
-"node": 42,
-"name": "InitialModel/job056/",
+"node": 35,
+"name": "InitialModel/job088/",
+"colortype": 6
+},
+{
+"node": 36,
+"name": "Class2D/job069/",
+"colortype": 2
+},
+{
+"node": 37,
+"name": "Class2D/job080/",
+"colortype": 2
+},
+{
+"node": 38,
+"name": "Class2D/job078/",
+"colortype": 2
+},
+{
+"node": 39,
+"name": "MaskCreate/job093/",
 "colortype": 7
 },
 {
+"node": 40,
+"name": "Refine3D/job092/",
+"colortype": 3
+},
+{
+"node": 41,
+"name": "Refine3D/job091/",
+"colortype": 3
+},
+{
+"node": 42,
+"name": "InitialModel/job056/",
+"colortype": 6
+},
+{
 "node": 43,
-"name": "AutoPick/job047/",
-"colortype": 4
+"name": "Class2D/job066/",
+"colortype": 2
 },
 {
 "node": 44,
@@ -227,68 +227,68 @@
 },
 {
 "node": 45,
-"name": "Class2D/job077/",
-"colortype": 2
-},
-{
-"node": 46,
-"name": "InitialModel/job088/",
-"colortype": 7
-},
-{
-"node": 47,
-"name": "Class2D/job050/",
-"colortype": 2
-},
-{
-"node": 48,
-"name": "AutoPick/job045/",
-"colortype": 4
-},
-{
-"node": 49,
-"name": "AutoPick/job044/",
-"colortype": 4
-},
-{
-"node": 50,
-"name": "Class2D/job080/",
-"colortype": 2
-},
-{
-"node": 51,
-"name": "Class2D/job029/",
-"colortype": 2
-},
-{
-"node": 52,
-"name": "Class2D/job069/",
-"colortype": 2
-},
-{
-"node": 53,
-"name": "Class2D/job057/",
-"colortype": 2
-},
-{
-"node": 54,
 "name": "AutoPick/job043/",
 "colortype": 4
 },
 {
-"node": 55,
-"name": "Class2D/job076/",
+"node": 46,
+"name": "Class2D/job016/",
 "colortype": 2
 },
 {
+"node": 47,
+"name": "AutoPick/job046/",
+"colortype": 4
+},
+{
+"node": 48,
+"name": "InitialModel/job086/",
+"colortype": 6
+},
+{
+"node": 49,
+"name": "Class3D/job073/",
+"colortype": 2
+},
+{
+"node": 50,
+"name": "Class3D/job064/",
+"colortype": 2
+},
+{
+"node": 51,
+"name": "Refine3D/job098/",
+"colortype": 3
+},
+{
+"node": 52,
+"name": "AutoPick/job044/",
+"colortype": 4
+},
+{
+"node": 53,
+"name": "Class2D/job029/",
+"colortype": 2
+},
+{
+"node": 54,
+"name": "AutoPick/job047/",
+"colortype": 4
+},
+{
+"node": 55,
+"name": "AutoPick/job045/",
+"colortype": 4
+},
+{
 "node": 56,
-"name": "Refine3D/job092/",
-"colortype": 5
+"name": "Class2D/job057/",
+"colortype": 2
 },
 {
 "node": 57,
-"name": "Refine3D/job095/",
-"colortype": 5
+"name": "Class2D/job050/",
+"colortype": 2
 }
 ],
 "links": [
@@ -461,12 +461,6 @@
 "nb_particle": 93245
 },
 {
-"source": "Class2D/job078/",
-"target": "Select/job079/",
-"value": 20,
-"nb_particle": 93245
-},
-{
 "source": "Class3D/job096/",
 "target": "Select/job097/",
 "value": 20,
@@ -493,24 +487,6 @@
 {
 "source": "Class3D/job089/",
 "target": "Refine3D/job095/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "MaskCreate/job093/",
-"target": "PostProcess/job094/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "MaskCreate/job093/",
-"target": "Refine3D/job095/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "MaskCreate/job093/",
-"target": "Class3D/job096/",
 "value": 20,
 "nb_particle": 93245
 },
@@ -557,6 +533,72 @@
 "nb_particle": 93245
 },
 {
+"source": "InitialModel/job088/",
+"target": "Class3D/job089/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "InitialModel/job088/",
+"target": "Class3D/job096/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "Class2D/job069/",
+"target": "Select/job071/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "Class2D/job069/",
+"target": "Select/job072/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "Class2D/job080/",
+"target": "Select/job081/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "Class2D/job078/",
+"target": "Select/job079/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "MaskCreate/job093/",
+"target": "PostProcess/job094/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "MaskCreate/job093/",
+"target": "Refine3D/job095/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "MaskCreate/job093/",
+"target": "Class3D/job096/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "Refine3D/job092/",
+"target": "MaskCreate/job093/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "Refine3D/job092/",
+"target": "PostProcess/job094/",
+"value": 20,
+"nb_particle": 93245
+},
+{
 "source": "InitialModel/job056/",
 "target": "Class3D/job064/",
 "value": 20,
@@ -569,14 +611,26 @@
 "nb_particle": 93245
 },
 {
-"source": "InitialModel/job088/",
-"target": "Class3D/job089/",
+"source": "Class2D/job029/",
+"target": "Select/job036/",
 "value": 20,
 "nb_particle": 93245
 },
 {
-"source": "InitialModel/job088/",
-"target": "Class3D/job096/",
+"source": "Class2D/job029/",
+"target": "Select/job037/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "Class2D/job029/",
+"target": "Select/job038/",
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": "Class2D/job057/",
+"target": "Select/job059/",
 "value": 20,
 "nb_particle": 93245
 },
@@ -601,60 +655,6 @@
 {
 "source": "Class2D/job050/",
 "target": "Select/job055/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "Class2D/job080/",
-"target": "Select/job081/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "Class2D/job029/",
-"target": "Select/job036/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "Class2D/job029/",
-"target": "Select/job037/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "Class2D/job029/",
-"target": "Select/job038/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "Class2D/job069/",
-"target": "Select/job071/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "Class2D/job069/",
-"target": "Select/job072/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "Class2D/job057/",
-"target": "Select/job059/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "Refine3D/job092/",
-"target": "MaskCreate/job093/",
-"value": 20,
-"nb_particle": 93245
-},
-{
-"source": "Refine3D/job092/",
-"target": "PostProcess/job094/",
 "value": 20,
 "nb_particle": 93245
 }

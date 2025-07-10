@@ -10,6 +10,7 @@ MOVIE_TEST1 = 'MotionCorr/job006/data/TAP_A2_136-1_006_Sep27_03_51_43_X-1Y-1-0.m
 MOVIE_TEST2 = 'MotionCorr/job006/data/TAP_A2_128-167_016_Sep26_19_08_07_X-2Y-2-0.mrc'
 MOVIE_TEST3 = 'MotionCorr/job006/data/TAP_A2_146-83_001_Sep27_18_01_51_X-2Y-2-0.mrc'
 MOVIE_TEST4 = 'MotionCorr/job006/data/TAP_A2_146-81_006_Sep27_18_00_19_X-1Y-1-0.mrc'
+MOVIE_TEST5 = 'MotionCorr/job006/data/TAP_A2_146-81_001_Sep27_17_59_34_X-2Y-1-0.mrc'
 if os.path.exists('save_graph_pipeline'):
     print('yes')
     file = open('save_graph_pipeline','rb')
@@ -116,10 +117,6 @@ def retrace_movie_pipeline_from_leave(job_name, movie, sankey_graph_dico, subgra
         for parent in subgraph['adj_dict'][job_name]:
                 result += retrace_movie_pipeline_from_leave(parent.data, movie, sankey_graph_dico, subgraph)
         return result
-
-
-
-    
     
 def get_ordered_job_list(sankey_graph_dico):
     job_list = list(sankey_graph_dico.keys())
@@ -137,8 +134,7 @@ def find_path_to_root(node, subgraph_dict, depth = 0, done = []):
     if not node.data[:10] == 'MotionCorr':
         depth += 1
         parents = node.get_parents()
-        i = 0
-        nb_parent = len(parents)
+
         subgraph_dict['nodes'].append(node.data)
         if not node.data in subgraph_dict['adj_dict'].keys():
             subgraph_dict['adj_dict'][node.data] = []
@@ -155,24 +151,78 @@ def find_path_to_root(node, subgraph_dict, depth = 0, done = []):
         
         subgraph_dict['adj_dict'][node.data] = []
 
+def find_path_to_root2(node, subgraph_dict, nodetype_list,depth = 0, done = []):
+    print(node.data)
+    if not node.data[:10] == 'MotionCorr':
+        depth += 1
+        parents = node.get_parents()
+        
+        if node.data.split('/')[0] in nodetype_list:
+            subgraph_dict['nodes'].append(node.data)
+            if not node.data in subgraph_dict['adj_dict'].keys():
+                subgraph_dict['adj_dict'][node.data] = []
+        
+        for parent in parents:
+            print(node.data.split('/')[0], parent.data.split('/')[0])
+            if node.data.split('/')[0] in nodetype_list and parent.data.split('/')[0] in nodetype_list:
+                subgraph_dict['adj_dict'][node.data].append(parent)
+            if not parent.data == 'imaginary' and not parent.data in done:
+                
+                
+                find_path_to_root2(parent, nodetype_list, subgraph_dict, depth, done)
+        return subgraph_dict
+    else:
+        subgraph_dict['nodes'].append(node.data)
+        
+        subgraph_dict['adj_dict'][node.data] = []
+
+def slide_rigth_part_amount(job_link_list, movie_name):
+    new_list = list()
+    for link in job_link_list:
+        if link['source'] == movie_name:
+            new_list.append(link)
+        else:
+            new_dict = link.copy()
+            for link2 in job_link_list:
+                if link == link2:
+                    pass
+                else:
+                    if link['source'] == link2['target']:
+                        new_dict['value'] = link2['value']
+                        new_dict['nb_particle'] = link2['nb_particle']
+            new_list.append(new_dict)
+    return new_list
+                    
 
 def json_leave_subgraph_for_1_movie(job_name, movie, pipeline_graph):
     
     file = open('data_sankey1','rb')
     graph_dico =pickle.load(file)
     subgraph_dico = {'nodes' : list(), 'adj_dict' : dict()}
-    subgraph_dico  = find_path_to_root(find_node_from_data(graph_pipeline, job_name ), subgraph_dico )
+    subgraph_dico  = find_path_to_root(find_node_from_data(graph_pipeline, job_name ), 
+                                        subgraph_dico,
+                                        ['Refine3D', 'Select', 'Extract',]
+                                        )
+    print(subgraph_dico)
     remove_duplicate(subgraph_dico['nodes'])
     subgraph_movie_dico = retrace_movie_pipeline_from_leave(job_name, movie, graph_dico, subgraph_dico)
+    
     json_dict = {'links' : list(), 'nodes' : list()}
     i = 0
     index_by_name = dict()
     max_particle = 0
     done = []
-    
+    colortype_per_jobtype = []
     for job in subgraph_movie_dico:
+        
         job_name2 = list(job.keys())[0]
         if not job_name2 in done:
+            if job_name2.split('/')[0] in colortype_per_jobtype:
+                colortype = colortype_per_jobtype.index(job_name2.split('/')[0])
+            else:
+                colortype = len(colortype_per_jobtype)
+                colortype_per_jobtype.append(job_name2.split('/')[0])
+
             done.append(job_name2)
             nb_particle = job[job_name2]
             if type(nb_particle) == int:
@@ -180,14 +230,15 @@ def json_leave_subgraph_for_1_movie(job_name, movie, pipeline_graph):
                     max_particle = nb_particle
             json_dict['nodes'].append({'node' : i, 
                                     'name' : job_name2, 
-                                    'colortype' :0}
+                                    'colortype' :colortype}
                 
         )
         index_by_name[job_name2] = i
         i+=1
+    movie_node_name = movie.replace('MotionCorr/job006/data/', '')
     json_dict['nodes'].append({'node' : i+1, 
-                                    'name' : movie, 
-                                    'colortype' :0})
+                                    'name' : movie_node_name, 
+                                    'colortype' :len(colortype_per_jobtype)})
     movie_node_index = i+1
 
     
@@ -195,32 +246,32 @@ def json_leave_subgraph_for_1_movie(job_name, movie, pipeline_graph):
         value = 1
         for row in subgraph_movie_dico:
             if list(row.keys())[0] == job_name3:
-                value = row[job_name3]
+                nb_particle = row[job_name3]
             
         scale = lambda a : log_scale(a, max_particle) +1  if type(a) ==int else 'NaN'    
         #if int(log_scale(a, max_particle))==0 else( log_scale(a, max_particle) if type(a)==int  else 5 )
-        value = scale(value)
+        value = scale(nb_particle)
         for node in parents:
 
-            json_dict['links'].append({'source' : node.data, 
+            json_dict['links'].append({'source' :node.data, 
                                    'target' : job_name3,
                                    'value' : value,
+                                   'nb_particle' : nb_particle
                                    })
             
         job_list_in_order = order_job_list(subgraph_dico['nodes'])
     to_do_later = []
     for i,link in enumerate(json_dict['links']):
-            
-            
             if link['value'] == 'NaN':
                 target = link['target']
                 new_value = False
                 for link_2 in json_dict['links']:
                     if link_2['source'] == target and link_2['value'] != 'NaN':
                         new_value = link_2['value']
+                        new_nb_particle = link_2['nb_particle']
                 if new_value == False:
                     to_do_later = [link, i]
-                link.update({'value' : new_value})
+                link.update({'value' : new_value, 'nb_particle' : new_nb_particle })
                 new_dict = link 
                 json_dict['links'][i] = new_dict
     while len(to_do_later):
@@ -229,7 +280,8 @@ def json_leave_subgraph_for_1_movie(job_name, movie, pipeline_graph):
             for link_2 in dict_copy:
                 if link[0]['target'] == link_2['source'] and link_2['value'] != "NaN":
                     new_value = link_2['value']
-                    link.update({'value' : new_value})
+                    new_nb_particle = link_2['nb_particle']
+                    link.update({'value' : new_value, 'nb_particle' : new_nb_particle })
                     new_dict = link 
                     json_dict['links'][i] = new_dict
 
@@ -239,12 +291,15 @@ def json_leave_subgraph_for_1_movie(job_name, movie, pipeline_graph):
     for link in json_dict['links']:
         if link['source'] == job_list_in_order[0]:
                 movie_node_value = link['value'] 
+                movie_nb_particle = link['nb_particle']
     json_dict['links'].append(
-            {'source' : movie, 
+            {'source' : movie_node_name, 
                                    'target' :job_list_in_order[0],    
                                    'value' : movie_node_value,
+                                   'nb_particle' : movie_nb_particle
                                    }
         )
+    json_dict['links'] = slide_rigth_part_amount(json_dict['links'], movie_node_name)
     json_object = json.dumps(json_dict, indent=0)
     write_manual_layout(list(subgraph_dico['adj_dict'].keys()), pipeline_graph)
     if os.path.exists(JSON_FILENAME):
@@ -269,7 +324,7 @@ def write_manual_layout(node_list, pipeline_graph):
 
 
 if __name__ =='__main__':
-    json_leave_subgraph_for_1_movie('Refine3D/job098/', MOVIE_TEST4, graph_pipeline)
+    json_leave_subgraph_for_1_movie('Refine3D/job098/', MOVIE_TEST5, graph_pipeline)
     
     
     
