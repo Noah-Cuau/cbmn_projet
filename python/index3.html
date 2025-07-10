@@ -34,12 +34,12 @@
 <script>
   
 var units = "Mt CO2";
-var doManualLayout = true
-var vertical_margin = 50
+var doManualLayout = false
+var vertical_margin = 150
  
 var margin = {top: 10, right: 10, bottom: 10, left: 10},
     width = window.screen.width - margin.left - margin.right,
-    height = (window.screen.height - margin.top - margin.bottom)/2;
+    height = (window.screen.height - margin.top - margin.bottom)/4;
  
 var formatNumber = d3.format(",.0f"),    // zero decimal places
     format = function(d) { return formatNumber(d) + " " + units; },
@@ -62,7 +62,7 @@ var sankey = d3.sankey()
 var path = sankey.link();
  
 // load the data
-d3.json("sankey_movie_test2.json", function(error, graph) {
+d3.json("sankey_movie_test3.json", function(error, graph) {
  
     var nodeMap = {};
     graph.nodes.forEach(function(x) { nodeMap[x.name] = x; });
@@ -87,7 +87,6 @@ d3.json("sankey_movie_test2.json", function(error, graph) {
       .attr("d", sankey.link())
       .style("stroke-width", function(d) { return Math.max(1, d.dy); })
       .sort(function(a, b) { return b.dy - a.dy; });
-  console.log(link)
 // add the link titles
   link.append("title")
         .text(function(d) {
@@ -99,13 +98,14 @@ d3.json("sankey_movie_test2.json", function(error, graph) {
     .enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { 
-		  return "translate(" + d.x + "," + 0 + ")";
+		  return "translate(" + d.x + "," + d.y + ")";
       })
     .call(d3.behavior.drag()
       .origin(function(d) { return d; })
       .on("dragstart", function() { 
     		  this.parentNode.appendChild(this); })
       .on("drag", dragmove));
+
     
  
 // add the rectangles for the nodes
@@ -164,25 +164,27 @@ d3.json("sankey_movie_test2.json", function(error, graph) {
           min_rank = data[i][1];
         }
       }
-      var space_taken_by_columm = Array(data.length).fill(0)
+      console.log(max_rank)
+      var space_taken_by_columm = Array(max_rank+1).fill(0)
       for (var l = 0; l<data.length;l++) {
         var pickNone;
         var d;
         var key = data[l][0];
         
         for (k=0; k< data.length; k++) {
+          
           if (foo[0][k].__data__.name === key) {
           pickNode = foo[0][k]; 
           d = graph.nodes[k];
       }
 
       }
-     
+      console.log(l, space_taken_by_columm.length)
         d3.select(pickNode).attr("transform", 
             "translate(" + (
                    d.x = (data[l][1] - min_rank) * width/(max_rank-min_rank+1)
           ) + "," + (
-                   d.y = space_taken_by_columm[data[l][1]]
+                   d.y = d.y
             ) + ")");
         
             space_taken_by_columm[data[l][1]] = space_taken_by_columm[data[l][1]] + d.dy + vertical_margin; 
@@ -190,24 +192,26 @@ d3.json("sankey_movie_test2.json", function(error, graph) {
             link.attr("d", path).append("title")
       ;  
       }
-      for (var n = 0; n<space_taken_by_columm.length; n++){
-        var pickNone;
-        var d;
-        var key = data[l][0];
+      // for (var n = 0; n<space_taken_by_columm.length-1; n++){
+      //   var pickNone;
+      //   var d;
+      //   console.log(n)
+      //   var key = data[n][0];
         
-        for (k=0; k< data.length; k++) {
-          if (foo[0][k].__data__.name === key) {
-          pickNode = foo[0][k]; 
-          d = graph.nodes[k];
-                }
-          }
-      d3.select(pickNode).attr("transform", 
-            "translate(" + (
-                   d.x = (data[l][1] - min_rank) * width/(max_rank-min_rank+1)
-          ) + "," + (
-                   d.y = space_taken_by_columm[data[l][1]]
-            ) + ")");
-      }
+        
+      //   for (k=0; k< data.length; k++) {
+      //     if (foo[0][k].__data__.name === key) {
+      //     pickNode = foo[0][k]; 
+      //     d = graph.nodes[k];
+      //           }
+      //     }
+      // d3.select(pickNode).attr("transform", 
+      //       "translate(" + (
+      //              d.x = d.x
+      //     ) + "," + (
+      //              d.y = space_taken_by_columm[data[n][1]]
+      //       ) + ")");
+      // }
       
     });
     
@@ -263,6 +267,7 @@ d3.json("sankey_movie_test2.json", function(error, graph) {
 //     //console.log(displacements);
 //   }
 });
+
  
 </script>
  

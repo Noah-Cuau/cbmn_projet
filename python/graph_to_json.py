@@ -9,7 +9,7 @@ FILENAME = 'default_pipeline.star'
 DIR = '../../Seagate_basic/empiar-11998/' 
 log_scale_params = {
     'upper_bound' : 30,
-    'coef' :  0.0000000005
+    'coef' :  0.005
 }
 exp_scale_params = {
     'upper_bound' : 30,

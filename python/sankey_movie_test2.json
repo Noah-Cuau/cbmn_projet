@@ -3,117 +3,117 @@
 {
 "source": "Class3D/job096/",
 "target": "Refine3D/job098/",
-"value": 2
+"value": 1
 },
 {
 "source": "Select/job097/",
 "target": "Refine3D/job098/",
-"value": 2
+"value": 1
 },
 {
 "source": "Select/job085/",
 "target": "Class3D/job096/",
-"value": 3
+"value": 1
 },
 {
 "source": "InitialModel/job088/",
 "target": "Class3D/job096/",
-"value": 3
+"value": 1
 },
 {
 "source": "MaskCreate/job093/",
 "target": "Class3D/job096/",
-"value": 3
+"value": 1
 },
 {
 "source": "Class2D/job083/",
 "target": "Select/job085/",
-"value": 3
+"value": 1
 },
 {
 "source": "Select/job081/",
 "target": "Class2D/job083/",
-"value": 6
+"value": 1
 },
 {
 "source": "Class2D/job080/",
 "target": "Select/job081/",
-"value": 6
+"value": 1
 },
 {
 "source": "Select/job079/",
 "target": "Class2D/job080/",
-"value": 11
+"value": 1
 },
 {
 "source": "Class2D/job078/",
 "target": "Select/job079/",
-"value": 11
+"value": 1
 },
 {
 "source": "Extract/job074/",
 "target": "Class2D/job078/",
-"value": 30
+"value": 1
 },
 {
 "source": "CtfFind/job007/",
 "target": "Extract/job074/",
-"value": 30
+"value": 1
 },
 {
 "source": "AutoPick/job067/",
 "target": "Extract/job074/",
-"value": 30
+"value": 1
 },
 {
 "source": "MotionCorr/job006/",
 "target": "CtfFind/job007/",
-"value": 5
+"value": 1
 },
 {
 "source": "CtfFind/job007/",
 "target": "AutoPick/job067/",
-"value": 5
+"value": 1
 },
 {
 "source": "Select/job087/",
 "target": "InitialModel/job088/",
-"value": 2
+"value": 1
 },
 {
 "source": "Class2D/job083/",
 "target": "Select/job087/",
-"value": 2
+"value": 1
 },
 {
 "source": "Refine3D/job092/",
 "target": "MaskCreate/job093/",
-"value": 5
+"value": 1
 },
 {
 "source": "Class2D/job083/",
 "target": "Refine3D/job092/",
-"value": 6
+"value": 1
 },
 {
 "source": "Class3D/job089/",
 "target": "Refine3D/job092/",
-"value": 6
+"value": 1
 },
 {
 "source": "Class2D/job083/",
 "target": "Class3D/job089/",
-"value": 6
+"value": 1
 },
 {
 "source": "InitialModel/job088/",
 "target": "Class3D/job089/",
-"value": 6
+"value": 1
 },
 {
 "source": "Class3D/job096/",
 "target": "Select/job097/",
-"value": 2
+"value": 1
 }
 ],
 "nodes": [

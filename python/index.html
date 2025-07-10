@@ -70,7 +70,8 @@ d3.json("sankey6.json", function(error, graph) {
       return {
         source: nodeMap[x.source],
         target: nodeMap[x.target],
-        value: x.value
+        value: x.value,
+        nb_particle : x.nb_particle
       };
     });
  
@@ -80,18 +81,19 @@ d3.json("sankey6.json", function(error, graph) {
       .layout(2);
  
 // add in the links
+  
   var link = svg.append("g").selectAll(".link")
       .data(graph.links)
     .enter().append("path")
       .attr("class", "link")
       .attr("d", sankey.link())
+
       .style("stroke-width", function(d) { return Math.max(1, d.dy); })
       .sort(function(a, b) { return b.dy - a.dy; });
-  console.log(link)
 // add the link titles
   link.append("title")
-        .text(function(d) {
-      	return d.value + ' particles';});
+        .text(function(d) { console.log(d)
+      	return d.nb_particle + ' particles';});
  
 // add in the nodes
   var node = svg.append("g").selectAll(".node")

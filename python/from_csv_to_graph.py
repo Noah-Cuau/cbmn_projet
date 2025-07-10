@@ -2,13 +2,14 @@ import graph
 import csv, os, json, pickle
 from graph_visualisation import find_node_from_data
 from graph_to_json import remove_duplicate, look_for_relation, log_scale
-JSON_FILENAME = 'sankey_movie_test2.json'
+JSON_FILENAME = 'sankey_movie_test3.json'
 JSON_POS_FILENAME = 'sankey_movie_pos_test2.json'
 PATH = '../../mirrored_sankey'
 FILE_NAME = 'sankey.csv'
 MOVIE_TEST1 = 'MotionCorr/job006/data/TAP_A2_136-1_006_Sep27_03_51_43_X-1Y-1-0.mrc'
 MOVIE_TEST2 = 'MotionCorr/job006/data/TAP_A2_128-167_016_Sep26_19_08_07_X-2Y-2-0.mrc'
 MOVIE_TEST3 = 'MotionCorr/job006/data/TAP_A2_146-83_001_Sep27_18_01_51_X-2Y-2-0.mrc'
+MOVIE_TEST4 = 'MotionCorr/job006/data/TAP_A2_146-81_006_Sep27_18_00_19_X-1Y-1-0.mrc'
 if os.path.exists('save_graph_pipeline'):
     print('yes')
     file = open('save_graph_pipeline','rb')
@@ -127,6 +128,10 @@ def get_ordered_job_list(sankey_graph_dico):
    
     return ordered_job_list
 
+def order_job_list(job_list):
+
+    return sorted(job_list, key = lambda a :int(a[-4:-1]))
+
 def find_path_to_root(node, subgraph_dict, depth = 0, done = []):
     done.append(node.data) 
     if not node.data[:10] == 'MotionCorr':
@@ -164,6 +169,7 @@ def json_leave_subgraph_for_1_movie(job_name, movie, pipeline_graph):
     index_by_name = dict()
     max_particle = 0
     done = []
+    
     for job in subgraph_movie_dico:
         job_name2 = list(job.keys())[0]
         if not job_name2 in done:
@@ -179,6 +185,10 @@ def json_leave_subgraph_for_1_movie(job_name, movie, pipeline_graph):
         )
         index_by_name[job_name2] = i
         i+=1
+    json_dict['nodes'].append({'node' : i+1, 
+                                    'name' : movie, 
+                                    'colortype' :0})
+    movie_node_index = i+1
 
     
     for job_name3, parents in subgraph_dico['adj_dict'].items():
@@ -186,20 +196,60 @@ def json_leave_subgraph_for_1_movie(job_name, movie, pipeline_graph):
         for row in subgraph_movie_dico:
             if list(row.keys())[0] == job_name3:
                 value = row[job_name3]
-        scale = lambda a : log_scale(a, max_particle) if type(a)==int  else 5  
-        value = scale(value)      
+            
+        scale = lambda a : log_scale(a, max_particle) +1  if type(a) ==int else 'NaN'    
+        #if int(log_scale(a, max_particle))==0 else( log_scale(a, max_particle) if type(a)==int  else 5 )
+        value = scale(value)
         for node in parents:
-            if job_name3 == 'Refine3D/job098/':
-                print(node)
+
             json_dict['links'].append({'source' : node.data, 
                                    'target' : job_name3,
                                    'value' : value,
                                    })
-        json_object = json.dumps(json_dict, indent=0)
-        write_manual_layout(list(subgraph_dico['adj_dict'].keys()), pipeline_graph)
-        if os.path.exists(JSON_FILENAME):
+            
+        job_list_in_order = order_job_list(subgraph_dico['nodes'])
+    to_do_later = []
+    for i,link in enumerate(json_dict['links']):
+            
+            
+            if link['value'] == 'NaN':
+                target = link['target']
+                new_value = False
+                for link_2 in json_dict['links']:
+                    if link_2['source'] == target and link_2['value'] != 'NaN':
+                        new_value = link_2['value']
+                if new_value == False:
+                    to_do_later = [link, i]
+                link.update({'value' : new_value})
+                new_dict = link 
+                json_dict['links'][i] = new_dict
+    while len(to_do_later):
+        for link in to_do_later:
+            dict_copy = json_dict['links'].copy()
+            for link_2 in dict_copy:
+                if link[0]['target'] == link_2['source'] and link_2['value'] != "NaN":
+                    new_value = link_2['value']
+                    link.update({'value' : new_value})
+                    new_dict = link 
+                    json_dict['links'][i] = new_dict
+
+
+
+
+    for link in json_dict['links']:
+        if link['source'] == job_list_in_order[0]:
+                movie_node_value = link['value'] 
+    json_dict['links'].append(
+            {'source' : movie, 
+                                   'target' :job_list_in_order[0],    
+                                   'value' : movie_node_value,
+                                   }
+        )
+    json_object = json.dumps(json_dict, indent=0)
+    write_manual_layout(list(subgraph_dico['adj_dict'].keys()), pipeline_graph)
+    if os.path.exists(JSON_FILENAME):
             os.remove(JSON_FILENAME)
-        with open(JSON_FILENAME, "w") as outfile:
+    with open(JSON_FILENAME, "w") as outfile:
             outfile.write(json_object)
         
 def write_manual_layout(node_list, pipeline_graph):
@@ -219,7 +269,7 @@ def write_manual_layout(node_list, pipeline_graph):
 
 
 if __name__ =='__main__':
-    json_leave_subgraph_for_1_movie('Refine3D/job098/', MOVIE_TEST1, graph_pipeline)
+    json_leave_subgraph_for_1_movie('Refine3D/job098/', MOVIE_TEST4, graph_pipeline)
     
     
     
