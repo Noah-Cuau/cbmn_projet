@@ -1,0 +1,352 @@
+{
+"nodes": [
+{
+"node": 0,
+"name": "Extract/job028/",
+"colortype": 0
+},
+{
+"node": 1,
+"name": "Select/job036/",
+"colortype": 1
+},
+{
+"node": 2,
+"name": "Select/job037/",
+"colortype": 1
+},
+{
+"node": 3,
+"name": "Select/job038/",
+"colortype": 1
+},
+{
+"node": 4,
+"name": "Extract/job049/",
+"colortype": 0
+},
+{
+"node": 5,
+"name": "Select/job051/",
+"colortype": 1
+},
+{
+"node": 6,
+"name": "Select/job052/",
+"colortype": 1
+},
+{
+"node": 7,
+"name": "Select/job053/",
+"colortype": 1
+},
+{
+"node": 8,
+"name": "Select/job055/",
+"colortype": 1
+},
+{
+"node": 9,
+"name": "Select/job059/",
+"colortype": 1
+},
+{
+"node": 10,
+"name": "Extract/job068/",
+"colortype": 0
+},
+{
+"node": 11,
+"name": "Select/job071/",
+"colortype": 1
+},
+{
+"node": 12,
+"name": "Select/job072/",
+"colortype": 1
+},
+{
+"node": 13,
+"name": "Extract/job074/",
+"colortype": 0
+},
+{
+"node": 14,
+"name": "Select/job079/",
+"colortype": 1
+},
+{
+"node": 15,
+"name": "Select/job081/",
+"colortype": 1
+},
+{
+"node": 16,
+"name": "Select/job084/",
+"colortype": 1
+},
+{
+"node": 17,
+"name": "Select/job085/",
+"colortype": 1
+},
+{
+"node": 18,
+"name": "Select/job087/",
+"colortype": 1
+},
+{
+"node": 19,
+"name": "Select/job097/",
+"colortype": 1
+},
+{
+"node": 20,
+"name": "AutoPick/job040/",
+"colortype": 2
+},
+{
+"node": 21,
+"name": "AutoPick/job041/",
+"colortype": 2
+},
+{
+"node": 22,
+"name": "AutoPick/job042/",
+"colortype": 2
+},
+{
+"node": 23,
+"name": "AutoPick/job043/",
+"colortype": 2
+},
+{
+"node": 24,
+"name": "AutoPick/job044/",
+"colortype": 2
+},
+{
+"node": 25,
+"name": "AutoPick/job045/",
+"colortype": 2
+},
+{
+"node": 26,
+"name": "AutoPick/job046/",
+"colortype": 2
+},
+{
+"node": 27,
+"name": "AutoPick/job047/",
+"colortype": 2
+},
+{
+"node": 28,
+"name": "Class3D/job064/",
+"colortype": 3
+},
+{
+"node": 29,
+"name": "Class3D/job073/",
+"colortype": 3
+},
+{
+"node": 30,
+"name": "InitialModel/job086/",
+"colortype": 4
+},
+{
+"node": 31,
+"name": "Refine3D/job098/",
+"colortype": 5
+}
+],
+"links": [
+{
+"source": 0,
+"target": 1,
+"value": 9,
+"nb_particle": 3043
+},
+{
+"source": 0,
+"target": 2,
+"value": 9,
+"nb_particle": 3043
+},
+{
+"source": 0,
+"target": 3,
+"value": 9,
+"nb_particle": 3043
+},
+{
+"source": 3,
+"target": 20,
+"value": 6,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 21,
+"value": 6,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 22,
+"value": 6,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 23,
+"value": 6,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 24,
+"value": 6,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 25,
+"value": 6,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 26,
+"value": 6,
+"nb_particle": 1108
+},
+{
+"source": 3,
+"target": 27,
+"value": 6,
+"nb_particle": 1108
+},
+{
+"source": 4,
+"target": 5,
+"value": 29,
+"nb_particle": 1435112
+},
+{
+"source": 4,
+"target": 6,
+"value": 29,
+"nb_particle": 1435112
+},
+{
+"source": 4,
+"target": 7,
+"value": 29,
+"nb_particle": 1435112
+},
+{
+"source": 4,
+"target": 8,
+"value": 29,
+"nb_particle": 1435112
+},
+{
+"source": 4,
+"target": 9,
+"value": 29,
+"nb_particle": 1435112
+},
+{
+"source": 8,
+"target": 28,
+"value": 25,
+"nb_particle": 458373
+},
+{
+"source": 8,
+"target": 29,
+"value": 25,
+"nb_particle": 458373
+},
+{
+"source": 10,
+"target": 11,
+"value": 30,
+"nb_particle": 1621879
+},
+{
+"source": 10,
+"target": 12,
+"value": 30,
+"nb_particle": 1621879
+},
+{
+"source": 12,
+"target": 29,
+"value": 27,
+"nb_particle": 673271
+},
+{
+"source": 13,
+"target": 14,
+"value": 27,
+"nb_particle": 754492
+},
+{
+"source": 14,
+"target": 15,
+"value": 23,
+"nb_particle": 250095
+},
+{
+"source": 15,
+"target": 16,
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": 15,
+"target": 17,
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": 15,
+"target": 18,
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": 15,
+"target": 19,
+"value": 20,
+"nb_particle": 93245
+},
+{
+"source": 16,
+"target": 30,
+"value": 14,
+"nb_particle": 17535
+},
+{
+"source": 17,
+"target": 19,
+"value": 17,
+"nb_particle": 42651
+},
+{
+"source": 18,
+"target": 19,
+"value": 17,
+"nb_particle": 32941
+},
+{
+"source": 19,
+"target": 31,
+"value": 14,
+"nb_particle": 16084
+}
+]
+}
