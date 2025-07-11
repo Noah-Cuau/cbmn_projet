@@ -63,7 +63,7 @@ var sankey = d3.sankey()
 var path = sankey.link();
  
 // load the data
-d3.json("sankey_movie_test3.json", function(error, graph) {
+d3.json("../json_deposit/sankey_movie_test3.json", function(error, graph) {
  
     var nodeMap = {};
     graph.nodes.forEach(function(x) { nodeMap[x.name] = x; });
@@ -151,7 +151,7 @@ d3.json("sankey_movie_test3.json", function(error, graph) {
     //http://stackoverflow.com/questions/10337640/how-to-access-the-dom-element-that-correlates-to-a-d3-svg-object
     //displacements in order of foo nodes (foo[0][j])
 
-    fetch('sankey_movie_pos_test2.json').then(response => {return response.json()})
+    fetch('../json_deposit/sankey_movie_pos_test2.json').then(response => {return response.json()})
     .then(data => {
       var width = window.screen.width;
       var height = window.screen.height;

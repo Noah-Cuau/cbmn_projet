@@ -2,6 +2,7 @@ import graph
 import csv, os, json, pickle
 from graph_visualisation import find_node_from_data
 from graph_to_json import remove_duplicate, look_for_relation, log_scale
+JSON_REP = 'json_deposit'
 JSON_FILENAME = 'sankey_movie_test3.json'
 JSON_POS_FILENAME = 'sankey_movie_pos_test2.json'
 PATH = '../../mirrored_sankey'
@@ -132,6 +133,7 @@ def order_job_list(job_list):
 def find_path_to_root(node, subgraph_dict, depth = 0, done = []):
     done.append(node.data) 
     if not node.data[:10] == 'MotionCorr':
+        print(depth)
         depth += 1
         parents = node.get_parents()
 
@@ -201,7 +203,7 @@ def json_leave_subgraph_for_1_movie(job_name, movie, pipeline_graph):
     subgraph_dico = {'nodes' : list(), 'adj_dict' : dict()}
     subgraph_dico  = find_path_to_root(find_node_from_data(graph_pipeline, job_name ), 
                                         subgraph_dico,
-                                        ['Refine3D', 'Select', 'Extract',]
+                                        
                                         )
     print(subgraph_dico)
     remove_duplicate(subgraph_dico['nodes'])
@@ -302,9 +304,9 @@ def json_leave_subgraph_for_1_movie(job_name, movie, pipeline_graph):
     json_dict['links'] = slide_rigth_part_amount(json_dict['links'], movie_node_name)
     json_object = json.dumps(json_dict, indent=0)
     write_manual_layout(list(subgraph_dico['adj_dict'].keys()), pipeline_graph)
-    if os.path.exists(JSON_FILENAME):
-            os.remove(JSON_FILENAME)
-    with open(JSON_FILENAME, "w") as outfile:
+    if os.path.exists(JSON_REP + '/' + JSON_FILENAME):
+            os.remove(JSON_REP + '/' + JSON_FILENAME)
+    with open(JSON_REP + '/' + JSON_FILENAME, "w") as outfile:
             outfile.write(json_object)
         
 def write_manual_layout(node_list, pipeline_graph):
@@ -315,15 +317,16 @@ def write_manual_layout(node_list, pipeline_graph):
         rank = node.rank
         rank_list.append([node_name, rank])
     json_object = json.dumps(rank_list, indent=0)
-    if os.path.exists(JSON_POS_FILENAME):
-            os.remove(JSON_POS_FILENAME)
-    with open(JSON_POS_FILENAME, "w") as outfile:
+    if os.path.exists(JSON_REP + '/' + JSON_POS_FILENAME):
+            os.remove(JSON_REP + '/' +JSON_POS_FILENAME)
+    with open(JSON_REP + '/' +JSON_POS_FILENAME, "w") as outfile:
             outfile.write(json_object)
     
 
 
 
 if __name__ =='__main__':
+
     json_leave_subgraph_for_1_movie('Refine3D/job098/', MOVIE_TEST5, graph_pipeline)
     
     
